@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aarthik Uday - Financial Advisory Portfolio Management and Live Ticker Tracking Dashboard. Support for IIFL Stocks and NJ Wealth SIP, SWP, and Insurance.">
+    <title>Aarthik Uday | Live Portfolio Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ionicons for premium vector UI icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <!-- Chart.js for premium graphics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- 1. AUTHENTICATION OVERLAY PORTAL -->
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-card glass-panel">
+            <div class="auth-header">
+                <div class="brand-logo" style="margin: 0 auto 1.5rem auto;">
+                    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                        <circle cx="50" cy="50" r="48" fill="#FF9505" />
+                        <g fill="#0A0E2B">
+                            <rect x="18" y="45" width="8" height="35" rx="1.5" />
+                            <rect x="30" y="37" width="8" height="43" rx="1.5" />
+                            <rect x="42" y="30" width="8" height="50" rx="1.5" />
+                            <rect x="54" y="22" width="8" height="58" rx="1.5" />
+                            <rect x="66" y="15" width="8" height="65" rx="1.5" />
+                        </g>
+                        <path d="M 12 78 L 34 45 L 46 65 L 82 22" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                        <polygon points="88,15 73,22 84,31" fill="#FFFFFF" />
+                    </svg>
+                </div>
+                <h2>Aarthik Uday</h2>
+                <p>Sign in to manage client portfolios & track yields</p>
+            </div>
+            <form id="auth-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="login-username">Username</label>
+                    <input type="text" id="login-username" class="form-control" placeholder="Enter username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Enter password" required autocomplete="current-password">
+                </div>
+                <button type="submit" id="btn-login-submit" class="btn btn-primary auth-btn">
+                    <span>Sign In</span>
+                    <ion-icon name="log-in-outline"></ion-icon>
+                </button>
+                <div id="auth-error" class="error-message">Invalid username or password. Please try again.</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. CORE WEB APP WRAPPER -->
+    <div id="app-container" class="app-container" style="display: none;">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar">
+            <div class="brand-section">
+                <div class="brand-logo">
+                    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                        <circle cx="50" cy="50" r="48" fill="#FF9505" />
+                        <g fill="#0A0E2B">
+                            <rect x="18" y="45" width="8" height="35" rx="1.5" />
+                            <rect x="30" y="37" width="8" height="43" rx="1.5" />
+                            <rect x="42" y="30" width="8" height="50" rx="1.5" />
+                            <rect x="54" y="22" width="8" height="58" rx="1.5" />
+                            <rect x="66" y="15" width="8" height="65" rx="1.5" />
+                        </g>
+                        <path d="M 12 78 L 34 45 L 46 65 L 82 22" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                        <polygon points="88,15 73,22 84,31" fill="#FFFFFF" />
+                    </svg>
+                </div>
+                <div class="brand-name">Aarthik Uday</div>
+            </div>
+
+            <!-- Dynamic Navigation Links by Role -->
+            <ul id="sidebar-nav" class="nav-links">
+                <!-- Admin specific navigation links -->
+                <li class="nav-item active" id="nav-admin-dashboard">
+                    <a href="#" onclick="switchView('admin-dashboard'); loadAdminDashboard();">
+                        <ion-icon name="grid-outline"></ion-icon>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li class="nav-item" id="nav-admin-clients" style="display: none;">
+                    <a href="#" onclick="switchView('admin-clients'); loadAdminClientsView();">
+                        <ion-icon name="people-outline"></ion-icon>
+                        <span>Client</span>
+                    </a>
+                </li>
+                <!-- Client specific navigation links -->
+                <li class="nav-item active" id="nav-client-dashboard" style="display: none;">
+                    <a href="#" onclick="switchView('client-dashboard'); loadClientDashboard();">
+                        <ion-icon name="pie-chart-outline"></ion-icon>
+                        <span>My Portfolio</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Active User Badge Info -->
+            <div class="user-profile-badge">
+                <span class="user-profile-name" id="user-display-name">Loading...</span>
+                <span class="user-profile-role" id="user-display-role">ROLE</span>
+                <a href="#" onclick="handleLogout(event)" style="color: var(--accent-red); text-decoration: none; font-size: 0.8rem; font-weight: 600; margin-top: 0.5rem; display: flex; align-items: center; gap: 0.25rem;">
+                    <ion-icon name="log-out-outline"></ion-icon>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- MAIN LAYOUT VIEW -->
+        <main class="main-content">
+
+
+            <!-- VIEW 1: ADMIN/OWNER DASHBOARD -->
+            <section id="view-admin-dashboard" class="view-pane active">
+                <div class="dashboard-header">
+                    <div class="header-title">
+                        <h1>Financial Advisory Overview</h1>
+                        <p>Track aggregated assets, profits, and investments of 200+ clients live.</p>
+                    </div>
+                    <div class="header-actions">
+
+                        <button id="btn-import-sheet" class="btn btn-secondary" onclick="openModal('modal-import-sheet')" style="border-color: var(--accent-purple); color: var(--accent-purple);">
+                            <ion-icon name="cloud-upload-outline"></ion-icon>
+                            <span>Import Sheets/Excel</span>
+                        </button>
+                        <button id="btn-new-client" class="btn btn-primary" onclick="openModal('modal-create-client')">
+                            <ion-icon name="person-add-outline"></ion-icon>
+                            <span>Add New Client</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Aggregated stats -->
+                <div class="stats-grid">
+                    <div class="stat-card glass-panel aum">
+                        <div class="stat-label">Total Assets Under Management (AUM)</div>
+                        <div class="stat-value" id="admin-stat-aum">₹0.00</div>
+                        <div class="stat-sub positive">
+                            <ion-icon name="trending-up-outline"></ion-icon>
+                            <span>Live Valuation</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-label">Total Cash Invested</div>
+                        <div class="stat-value" id="admin-stat-invested">₹0.00</div>
+                        <div class="stat-sub">
+                            <span>Cost basis</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel profit">
+                        <div class="stat-label">Total Absolute Yield / Profit</div>
+                        <div class="stat-value" id="admin-stat-profit" style="color: var(--accent-emerald);">₹0.00</div>
+                        <div class="stat-sub positive" id="admin-stat-yield-pct" style="color: var(--accent-emerald);">
+                            <ion-icon name="trending-up-outline"></ion-icon>
+                            <span>0.00%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel clients">
+                        <div class="stat-label">Total Active Clients</div>
+                        <div class="stat-value" id="admin-stat-clients">0</div>
+                        <div class="stat-sub">
+                            <span>Portfolio accounts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts layout -->
+                <div class="charts-grid">
+                    <div class="chart-card glass-panel">
+                        <div class="chart-title">
+                            <span>Asset Allocation Analysis</span>
+                            <div class="chart-legend">
+                                <span>NJ Wealth (SIP, SWP, Insurance)</span>
+                                <span>IIFL (Capital Shares)</span>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="chart-admin-allocation"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card glass-panel">
+                        <div class="chart-title">Broker Splits</div>
+                        <div class="chart-container">
+                            <canvas id="chart-admin-partners"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client & Asset List Table Panel -->
+                <div class="table-panel glass-panel">
+                    <div class="panel-header" style="flex-wrap: wrap; gap: 1rem;">
+                        <div style="display: flex; gap: 1rem; border-bottom: 2px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem;">
+                            <h2 class="panel-title active" id="tab-btn-clients" onclick="toggleAdminTab('clients')" style="cursor: pointer; position: relative;">Registered Client Profiles</h2>
+                            <h2 class="panel-title" id="tab-btn-assets" onclick="toggleAdminTab('assets')" style="cursor: pointer; position: relative; color: var(--text-secondary);">Master Client Holdings</h2>
+                        </div>
+                        <input type="text" id="client-search" class="search-input" placeholder="Search name, PAN, or scheme..." oninput="filterAdminTables()">
+                    </div>
+
+                    <!-- TAB 1: CLIENT PROFILES TABLE -->
+                    <div class="table-responsive" id="tab-content-clients">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Client Name</th>
+                                    <th>Contact Details</th>
+                                    <th>PAN Number</th>
+                                    <th>Total Invested</th>
+                                    <th>Current Value</th>
+                                    <th>Net Yield</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-clients-table-body">
+                                <tr>
+                                    <td colspan="7" style="text-align: center; color: var(--text-secondary);">Loading registered clients list...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- TAB 2: GRANULAR ASSET HOLDINGS LEDGER -->
+                    <div class="table-responsive" id="tab-content-assets" style="display: none;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Client Account</th>
+                                    <th>Scheme / Security Name</th>
+                                    <th>Broker Partner</th>
+                                    <th>Asset Type</th>
+                                    <th>Units Held</th>
+                                    <th>Avg Cost Price</th>
+                                    <th>Live Price</th>
+                                    <th>Total Invested</th>
+                                    <th>Current Valuation</th>
+                                    <th>Yield Return</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-assets-table-body">
+                                <tr>
+                                    <td colspan="10" style="text-align: center; color: var(--text-secondary);">Loading master asset holdings ledger...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- VIEW 4: DEDICATED CLIENT LIST VIEW (FOR ADMIN) -->
+            <section id="view-admin-clients" class="view-pane">
+                <div class="dashboard-header">
+                    <div class="header-title">
+                        <h1>Client Profiles</h1>
+                        <p>Manage and view details for all registered advisory clients.</p>
+                    </div>
+                </div>
+                
+                <div class="table-panel glass-panel">
+                    <div class="panel-header" style="flex-wrap: wrap; gap: 1rem;">
+                        <h2 class="panel-title">Active Clients</h2>
+                        <input type="text" id="clients-view-search" class="search-input" placeholder="Search client name or PAN..." oninput="filterClientsViewTable()">
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Client Name</th>
+                                    <th>Contact Details</th>
+                                    <th>PAN Number</th>
+                                    <th>Total Invested</th>
+                                    <th>Current Value</th>
+                                    <th>Net Yield</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clients-view-table-body">
+                                <tr>
+                                    <td colspan="7" style="text-align: center; color: var(--text-secondary);">Loading registered clients list...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 2: CLIENT PORTFOLIO VIEW -->
+            <section id="view-client-dashboard" class="view-pane">
+                <div class="dashboard-header">
+                    <div class="header-title">
+                        <h1 id="client-welcome-title">Welcome Back, Client!</h1>
+                        <p>Track your real-time holdings across NJ Wealth & IIFL brokers.</p>
+                    </div>
+                </div>
+
+                <!-- Personal stats -->
+                <div class="stats-grid">
+                    <div class="stat-card glass-panel aum">
+                        <div class="stat-label">My Portfolio Valuation</div>
+                        <div class="stat-value" id="client-stat-value">₹0.00</div>
+                        <div class="stat-sub positive">
+                            <ion-icon name="pulse-outline"></ion-icon>
+                            <span>Live Price tracking</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-label">My Invested Capital</div>
+                        <div class="stat-value" id="client-stat-invested">₹0.00</div>
+                        <div class="stat-sub">
+                            <span>Total cost basis</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel profit">
+                        <div class="stat-label">Net Absolute Gains / Profits</div>
+                        <div class="stat-value" id="client-stat-profit" style="color: var(--accent-emerald);">₹0.00</div>
+                        <div class="stat-sub positive" id="client-stat-yield-pct" style="color: var(--accent-emerald);">
+                            <ion-icon name="trending-up-outline"></ion-icon>
+                            <span>0.00%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <!-- Client holdings table -->
+                    <div class="table-panel glass-panel" style="margin-bottom: 0;">
+                        <div class="panel-header">
+                            <h2 class="panel-title">My Asset Holdings</h2>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Scheme / Stock Name</th>
+                                        <th>Partner</th>
+                                        <th>Asset Type</th>
+                                        <th>Total Units</th>
+                                        <th>Avg Buy Price</th>
+                                        <th>Live Price</th>
+                                        <th>Invested Capital</th>
+                                        <th>Live Valuation</th>
+                                        <th>Profit/Loss</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="client-holdings-table-body">
+                                    <!-- Populated dynamically -->
+                                    <tr>
+                                        <td colspan="9" style="text-align: center; color: var(--text-secondary);">Loading asset holdings...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Client side asset breakdown chart -->
+                    <div class="chart-card glass-panel">
+                        <div class="chart-title">My Asset Split</div>
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="chart-client-breakdown"></canvas>
+                        </div>
+                        
+                        <!-- Client personal transaction log summary -->
+                        <div class="panel-header" style="margin: 1.5rem 0 0.5rem 0; padding: 0;">
+                            <span class="panel-title" style="font-size: 0.95rem;">Recent Transactions</span>
+                        </div>
+                        <div style="max-height: 150px; overflow-y: auto; border: 1px solid var(--card-border); border-radius: 8px; padding: 0.5rem;">
+                            <ul id="client-tx-list" style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem;">
+                                <!-- Populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 3: DETAILED CLIENT PROFILE VIEW (FOR ADMIN) -->
+            <section id="view-client-details" class="view-pane">
+                <a onclick="switchView('admin-dashboard')" class="back-btn">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                    <span>Back to Advising overview</span>
+                </a>
+
+                <div class="dashboard-header" style="margin-bottom: 1.5rem;">
+                    <div class="header-title">
+                        <h1 id="detail-client-name">Loading Profile...</h1>
+                        <p>Comprehensive investment tracker sheet & holdings editor.</p>
+                    </div>
+                    <div class="header-actions">
+                        <button id="btn-add-asset" class="btn btn-primary" onclick="openModal('modal-add-investment')">
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                            <span>Record New Asset Purchase</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Client profile details -->
+                <div class="profile-card glass-panel">
+                    <div class="profile-field">
+                        <span class="profile-label">Phone Contact</span>
+                        <span class="profile-value" id="detail-phone">-</span>
+                    </div>
+                    <div class="profile-field">
+                        <span class="profile-label">Email Address</span>
+                        <span class="profile-value" id="detail-email">-</span>
+                    </div>
+                    <div class="profile-field">
+                        <span class="profile-label">PAN Card Tax ID</span>
+                        <span class="profile-value" id="detail-pan">-</span>
+                    </div>
+                    <div class="profile-field">
+                        <span class="profile-label">Residential Address</span>
+                        <span class="profile-value" id="detail-address">-</span>
+                    </div>
+                </div>
+
+                <!-- Stats summary -->
+                <div class="stats-grid">
+                    <div class="stat-card glass-panel aum">
+                        <div class="stat-label">Total Portfolio Value</div>
+                        <div class="stat-value" id="detail-total-value">₹0.00</div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-label">Total Capital Invested</div>
+                        <div class="stat-value" id="detail-total-invested">₹0.00</div>
+                    </div>
+                    <div class="stat-card glass-panel profit">
+                        <div class="stat-label">Net Absolute Gains</div>
+                        <div class="stat-value" id="detail-total-profit" style="color: var(--accent-emerald);">₹0.00</div>
+                    </div>
+                </div>
+
+                <div class="charts-grid" style="grid-template-columns: 2fr 1fr;">
+                    <!-- Table showing client holdings -->
+                    <div class="table-panel glass-panel" style="margin-bottom: 0;">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Asset Inventory</h2>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Scheme Name</th>
+                                        <th>Partner</th>
+                                        <th>Asset Type</th>
+                                        <th>Units Held</th>
+                                        <th>Avg Cost Price</th>
+                                        <th>Live Price</th>
+                                        <th>Total Invested</th>
+                                        <th>Total Valuation</th>
+                                        <th>Yield Return</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="detail-holdings-table-body">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Client specific transaction log table -->
+                    <div class="table-panel glass-panel" style="margin-bottom: 0;">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Audited Logs</h2>
+                        </div>
+                        <div style="max-height: 300px; overflow-y: auto;">
+                            <table style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="detail-transactions-table-body">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- 3. MODAL: REGISTER A NEW CLIENT -->
+    <div id="modal-create-client" class="modal-overlay">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h2 style="font-weight: 800; font-size: 1.25rem;">Create Client Account</h2>
+                <span class="modal-close" onclick="closeModal('modal-create-client')">&times;</span>
+            </div>
+            <form id="form-create-client" onsubmit="submitNewClient(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label" for="client-username">Login Username</label>
+                        <input type="text" id="client-username" class="form-control" required placeholder="e.g. rahul">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="client-password">Login Password</label>
+                        <input type="password" id="client-password" class="form-control" required placeholder="Min 6 characters">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="client-fullName">Customer Full Name</label>
+                    <input type="text" id="client-fullName" class="form-control" required placeholder="e.g. Rahul Sharma">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="client-email">Email Address</label>
+                    <input type="email" id="client-email" class="form-control" required placeholder="rahul@example.com">
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label" for="client-phoneNumber">Phone Number</label>
+                        <input type="text" id="client-phoneNumber" class="form-control" required placeholder="10-digit mobile">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="client-panNumber">PAN Tax Card ID</label>
+                        <input type="text" id="client-panNumber" class="form-control" required placeholder="10-character code">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="client-address">Residential Address</label>
+                    <input type="text" id="client-address" class="form-control" placeholder="Street name, City">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                    <ion-icon name="checkmark-done-outline"></ion-icon>
+                    <span>Register Client</span>
+                </button>
+                <div id="create-client-error" class="error-message" style="margin-top: 0.75rem;">Username or Email already exists!</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. MODAL: ADD A NEW INVESTMENT -->
+    <div id="modal-add-investment" class="modal-overlay">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h2 style="font-weight: 800; font-size: 1.25rem;">Record Investment Asset</h2>
+                <span class="modal-close" onclick="closeModal('modal-add-investment')">&times;</span>
+            </div>
+            <form id="form-add-investment" onsubmit="submitNewInvestment(event)">
+                <input type="hidden" id="inv-client-id">
+                
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label" for="inv-partner">Broker Partner</label>
+                        <select id="inv-partner" class="form-control" required onchange="adaptAssetTypes()">
+                            <option value="NJ_WEALTH">NJ Wealth</option>
+                            <option value="IIFL">IIFL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="inv-type">Asset Type</label>
+                        <select id="inv-type" class="form-control" required>
+                            <!-- Populated dynamically via adaptAssetTypes -->
+                            <option value="SIP">Systematic Plan (SIP)</option>
+                            <option value="SWP">Withdrawal Plan (SWP)</option>
+                            <option value="INSURANCE">Insurance Plan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="inv-schemeName">Scheme / Security Name</label>
+                    <input type="text" id="inv-schemeName" class="form-control" required placeholder="e.g. Parag Parikh Flexi Cap Fund / Reliance Industries">
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label" for="inv-units">Total Quantity / Units</label>
+                        <input type="number" id="inv-units" step="any" min="0.0001" class="form-control" required placeholder="e.g. 150">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="inv-buyPrice">Average Cost Price (₹)</label>
+                        <input type="number" id="inv-buyPrice" step="any" min="0.01" class="form-control" required placeholder="e.g. 2400">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                    <ion-icon name="cart-outline"></ion-icon>
+                    <span>Record Purchase Transaction</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 5. MODAL: IMPORT EXCEL / GOOGLE SHEETS SPREADSHEETS -->
+    <div id="modal-import-sheet" class="modal-overlay">
+        <div class="modal-card glass-panel" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 style="font-weight: 800; font-size: 1.25rem;">Import Spreadsheet Portfolios</h2>
+                <span class="modal-close" onclick="closeModal('modal-import-sheet')">&times;</span>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; border-bottom: 2px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+                <button type="button" class="btn btn-secondary" id="btn-import-type-excel" onclick="switchImportForm('excel')" style="flex: 1; justify-content: center; font-size: 0.85rem;">Excel File Upload</button>
+                <button type="button" class="btn btn-secondary" id="btn-import-type-google" onclick="switchImportForm('google')" style="flex: 1; justify-content: center; font-size: 0.85rem; opacity: 0.6;">Google Sheets Link</button>
+            </div>
+
+            <!-- EXCEL FILE UPLOAD FORM -->
+            <form id="form-import-excel" onsubmit="submitExcelImport(event)">
+                <div class="form-group" style="border: 2px dashed rgba(255,255,255,0.1); border-radius: 8px; padding: 2rem; text-align: center; margin-bottom: 1.5rem;">
+                    <ion-icon name="cloud-upload-outline" style="font-size: 3rem; color: var(--accent-purple); margin-bottom: 0.5rem;"></ion-icon>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">Select an Excel file (.xlsx) containing portfolios</p>
+                    <input type="file" id="import-excel-file" accept=".xlsx" required style="display: none;" onchange="updateExcelFileName(this)">
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('import-excel-file').click()" style="margin: 0 auto;">Choose File</button>
+                    <span id="excel-file-name" style="display: block; font-size: 0.8rem; margin-top: 0.5rem; color: #fff; font-weight: 600;"></span>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    <ion-icon name="cloud-download-outline"></ion-icon>
+                    <span>Import Portfolios</span>
+                </button>
+            </form>
+
+            <!-- GOOGLE SHEETS LINK FORM -->
+            <form id="form-import-google" onsubmit="submitGoogleImport(event)" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label" for="import-google-url">Google Sheet Public Link</label>
+                    <input type="url" id="import-google-url" class="form-control" required placeholder="https://docs.google.com/spreadsheets/d/...">
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.4rem;">Note: The sheet must be shared as "Anyone with the link can view".</p>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                    <ion-icon name="sync-outline"></ion-icon>
+                    <span>Sync with Google Sheets</span>
+                </button>
+            </form>
+
+            <div id="import-sheet-message" style="display: none; padding: 0.75rem; border-radius: 6px; margin-top: 1rem; font-size: 0.85rem; font-weight: 600;"></div>
+        </div>
+    </div>
+
+    <!-- 6. APPLICATION LOGIC JS -->
+    <script src="app.js"></script>
+</body>
+</html>
