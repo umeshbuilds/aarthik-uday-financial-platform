@@ -207,10 +207,10 @@ const toggleLiveSim = () => {
             }
         }, 3500);
 
-        button.style.borderColor = 'var(--accent-red)';
-        button.style.color = 'var(--accent-red)';
-        button.className = 'btn btn-secondary'; // Remove pulse animation while ticking
-        textEl.textContent = 'Pause Live Market Feed';
+        button.style.borderColor = 'var(--danger)';
+        button.style.color = 'var(--danger)';
+        button.className = 'btn btn-soft'; // Remove pulse animation while ticking
+        textEl.textContent = 'Pause live market feed';
     }
 };
 
@@ -218,10 +218,10 @@ const resetLiveSimButton = () => {
     const button = document.getElementById('btn-live-toggle');
     const textEl = document.getElementById('live-toggle-text');
     if (button && textEl) {
-        button.style.borderColor = 'var(--accent-emerald)';
-        button.style.color = 'var(--accent-emerald)';
-        button.className = 'btn btn-secondary btn-pulse';
-        textEl.textContent = 'Start Live Market Feed';
+        button.style.borderColor = 'var(--success)';
+        button.style.color = 'var(--success)';
+        button.className = 'btn btn-soft btn-pulse';
+        textEl.textContent = 'Start live market feed';
     }
 };
 
@@ -274,21 +274,21 @@ const renderAdminCharts = (stats) => {
     chartAdminAllocation = new Chart(ctxAllocation, {
         type: 'bar',
         data: {
-            labels: ['SIP Mut. Funds', 'SWP Pension', 'LIC Insurance', 'IIFL Equities'],
+            labels: ['SIP mut. funds', 'SWP pension', 'LIC insurance', 'IIFL equities'],
             datasets: [{
                 label: 'Valuation in ₹',
                 data: [stats.sipValue, stats.swpValue, stats.insuranceValue, stats.stocksValue],
                 backgroundColor: [
-                    'rgba(255, 149, 5, 0.65)',   // Orange
+                    'rgba(254, 243, 199, 0.75)', // Highlight cream
                     'rgba(59, 130, 246, 0.65)',  // Blue
                     'rgba(245, 158, 11, 0.65)',  // Amber
                     'rgba(16, 185, 129, 0.65)'   // Emerald
                 ],
                 borderColor: [
-                    '#FF9505', '#3b82f6', '#f59e0b', '#10b981'
+                    '#fde68a', '#3b82f6', '#f59e0b', '#10b981'
                 ],
-                borderWidth: 1.5,
-                borderRadius: 8
+                borderWidth: 1,
+                borderRadius: 4
             }]
         },
         options: {
@@ -296,16 +296,24 @@ const renderAdminCharts = (stats) => {
             maintainAspectRatio: false,
             plugins: {
                 legend: { display: false },
-                tooltip: { backgroundColor: '#13141f', titleColor: '#fff', bodyColor: '#ccc' }
+                tooltip: { 
+                    backgroundColor: '#111111', 
+                    titleColor: '#ffffff', 
+                    bodyColor: '#a3a3a3',
+                    borderColor: 'rgba(255, 247, 237, 0.15)',
+                    borderWidth: 1,
+                    titleFont: { family: 'Montserrat' },
+                    bodyFont: { family: 'Manrope' }
+                }
             },
             scales: {
                 y: {
-                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                    ticks: { color: '#94a3b8' }
+                    grid: { color: 'rgba(255, 255, 255, 0.04)' },
+                    ticks: { color: '#737373', font: { family: 'Manrope', size: 10 } }
                 },
                 x: {
                     grid: { display: false },
-                    ticks: { color: '#94a3b8' }
+                    ticks: { color: '#737373', font: { family: 'Manrope', size: 10 } }
                 }
             }
         }
@@ -319,16 +327,16 @@ const renderAdminCharts = (stats) => {
     chartAdminPartners = new Chart(ctxPartners, {
         type: 'doughnut',
         data: {
-            labels: ['NJ Wealth (Mutual Funds)', 'IIFL (Capital Stocks)'],
+            labels: ['NJ Wealth', 'IIFL'],
             datasets: [{
                 data: [stats.njWealthValue, stats.iiflValue],
                 backgroundColor: [
-                    'rgba(255, 149, 5, 0.75)',
+                    'rgba(254, 243, 199, 0.75)',
                     'rgba(16, 185, 129, 0.75)'
                 ],
-                borderColor: ['rgba(255, 149, 5, 0.3)', 'rgba(16, 185, 129, 0.3)'],
+                borderColor: ['rgba(254, 243, 199, 0.3)', 'rgba(16, 185, 129, 0.3)'],
                 borderWidth: 1,
-                hoverOffset: 6
+                hoverOffset: 4
             }]
         },
         options: {
@@ -337,11 +345,17 @@ const renderAdminCharts = (stats) => {
             plugins: {
                 legend: {
                     position: 'bottom',
-                    labels: { color: '#f8fafc', font: { family: 'Inter', size: 11 } }
+                    labels: { color: '#e5e5e5', font: { family: 'Manrope', size: 11 } }
                 },
-                tooltip: { backgroundColor: '#13141f' }
+                tooltip: { 
+                    backgroundColor: '#111111',
+                    borderColor: 'rgba(255, 247, 237, 0.15)',
+                    borderWidth: 1,
+                    titleFont: { family: 'Montserrat' },
+                    bodyFont: { family: 'Manrope' }
+                }
             },
-            cutout: '70%'
+            cutout: '72%'
         }
     });
 };
@@ -352,7 +366,7 @@ const renderClientTable = (clients) => {
     tbody.innerHTML = '';
 
     if (clients.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-secondary);">No clients registered. Click 'Add New Client' to start!</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--muted-foreground);">No clients registered. Click 'Add New Client' to start!</td></tr>`;
         return;
     }
 
@@ -364,25 +378,24 @@ const renderClientTable = (clients) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                <div style="font-weight: 700; color: #fff;">${client.user.fullName}</div>
-                <div style="font-size: 0.75rem; color: var(--text-secondary);">@${client.user.username}</div>
+                <div style="font-weight: 600; color: #fff;">${client.user.fullName}</div>
+                <div style="font-size: 0.75rem; color: var(--muted-foreground); font-family: var(--font-mono);">@${client.user.username}</div>
             </td>
             <td>
                 <div>${client.user.email}</div>
-                <div style="font-size: 0.8rem; color: var(--text-secondary);">${client.phoneNumber}</div>
+                <div style="font-size: 0.75rem; color: var(--muted-foreground); font-family: var(--font-mono);">${client.phoneNumber}</div>
             </td>
             <td><code class="badge badge-purple">${client.panNumber}</code></td>
-            <td>${formatCurrency(client.totalInvested)}</td>
-            <td><span style="color: var(--accent-purple); font-weight: 700;">${formatCurrency(client.currentValue)}</span></td>
+            <td style="font-family: var(--font-display);">${formatCurrency(client.totalInvested)}</td>
+            <td style="font-family: var(--font-display); font-weight: 600; color: #ffffff;">${formatCurrency(client.currentValue)}</td>
             <td>
-                <span class="badge ${yieldPct >= 0 ? 'badge-emerald' : 'badge-red'}" style="${yieldPct < 0 ? 'background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);' : ''}">
+                <span class="badge ${yieldPct >= 0 ? 'badge-emerald' : 'badge-red'}">
                     ${yieldPct >= 0 ? '+' : ''}${yieldPct.toFixed(2)}%
                 </span>
             </td>
             <td>
-                <button class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;" onclick="loadClientDetail(${client.id})">
-                    <ion-icon name="open-outline"></ion-icon>
-                    <span>View Sheet</span>
+                <button class="btn btn-soft" onclick="loadClientDetail(${client.id})">
+                    <span>View details</span>
                 </button>
             </td>
         `;
@@ -420,10 +433,10 @@ const loadClientDashboard = async () => {
         const badgeEl = document.getElementById('client-stat-yield-pct');
         badgeEl.querySelector('span').textContent = `${yieldPct >= 0 ? '+' : ''}${yieldPct.toFixed(2)}%`;
         if (yieldPct < 0) {
-            badgeEl.style.color = 'var(--accent-red)';
+            badgeEl.style.color = 'var(--danger)';
             badgeEl.querySelector('ion-icon').setAttribute('name', 'trending-down-outline');
         } else {
-            badgeEl.style.color = 'var(--accent-emerald)';
+            badgeEl.style.color = 'var(--success)';
             badgeEl.querySelector('ion-icon').setAttribute('name', 'trending-up-outline');
         }
 
@@ -437,7 +450,7 @@ const loadClientDashboard = async () => {
         tbody.innerHTML = '';
 
         if (holdings.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-secondary);">You have no investments recorded yet. Let your advisor know!</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--muted-foreground);">You have no investments recorded yet. Let your advisor know!</td></tr>`;
         } else {
             holdings.forEach(inv => {
                 const invYield = inv.investedAmount > 0 
@@ -446,15 +459,15 @@ const loadClientDashboard = async () => {
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td style="font-weight: 700; color: #fff;">${inv.schemeName}</td>
+                    <td style="font-weight: 600; color: #ffffff;">${inv.schemeName}</td>
                     <td><span class="badge ${inv.partner === 'IIFL' ? 'badge-emerald' : 'badge-purple'}">${inv.partner.replace('_', ' ')}</span></td>
                     <td><span class="badge badge-blue">${inv.type}</span></td>
                     <td>${inv.units.toFixed(2)}</td>
                     <td>₹${inv.buyPrice.toFixed(2)}</td>
                     <td><span style="font-weight: 600;">₹${inv.currentPrice.toFixed(2)}</span></td>
                     <td>${formatCurrency(inv.investedAmount)}</td>
-                    <td><span style="color: var(--accent-purple); font-weight:700;">${formatCurrency(inv.currentValue)}</span></td>
-                    <td style="color: ${invYield >= 0 ? 'var(--accent-emerald)' : 'var(--accent-red)'}; font-weight:600;">
+                    <td><span style="font-weight: 600; color: #ffffff;">${formatCurrency(inv.currentValue)}</span></td>
+                    <td style="color: ${invYield >= 0 ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">
                         ${invYield >= 0 ? '+' : ''}${invYield.toFixed(2)}%
                     </td>
                 `;
@@ -473,7 +486,7 @@ const loadClientDashboard = async () => {
         txList.innerHTML = '';
 
         if (transactions.length === 0) {
-            txList.innerHTML = `<li style="font-size: 0.8rem; color: var(--text-secondary); text-align: center;">No history logs recorded yet.</li>`;
+            txList.innerHTML = `<li style="font-size: 0.8rem; color: var(--muted-foreground); text-align: center;">No history logs recorded yet.</li>`;
         } else {
             transactions.slice(0, 5).forEach(tx => {
                 const li = document.createElement('li');
@@ -489,10 +502,10 @@ const loadClientDashboard = async () => {
                 
                 li.innerHTML = `
                     <div>
-                        <span style="font-weight:700; color: ${tx.type === 'BUY' ? 'var(--accent-emerald)' : 'var(--accent-purple)'}">${tx.type}</span>
-                        <span style="color: var(--text-secondary); font-size:0.7rem;">(${formattedDate})</span>
+                        <span style="font-weight: 700; color: ${tx.type === 'BUY' ? 'var(--success)' : '#c084fc'}">${tx.type}</span>
+                        <span style="color: var(--muted-foreground); font-size: 0.7rem;">(${formattedDate})</span>
                     </div>
-                    <span style="font-weight: 600; color: #fff;">${formatCurrency(tx.amount)}</span>
+                    <span style="font-weight: 600; color: #ffffff;">${formatCurrency(tx.amount)}</span>
                 `;
                 txList.appendChild(li);
             });
@@ -518,10 +531,10 @@ const renderClientChart = (stats) => {
             datasets: [{
                 data: [stats.sipValue, stats.swpValue, stats.insuranceValue, stats.stocksValue],
                 backgroundColor: [
-                    '#FF9505', '#3b82f6', '#f59e0b', '#10b981'
+                    '#fef3c7', '#3b82f6', '#f59e0b', '#10b981'
                 ],
                 borderColor: 'rgba(255, 255, 255, 0.05)',
-                borderWidth: 1.5
+                borderWidth: 1
             }]
         },
         options: {
@@ -530,11 +543,17 @@ const renderClientChart = (stats) => {
             plugins: {
                 legend: {
                     position: 'right',
-                    labels: { color: '#94a3b8', font: { size: 10 } }
+                    labels: { color: '#a3a3a3', font: { family: 'Manrope', size: 10 } }
                 },
-                tooltip: { backgroundColor: '#13141f' }
+                tooltip: { 
+                    backgroundColor: '#111111',
+                    borderColor: 'rgba(255, 247, 237, 0.15)',
+                    borderWidth: 1,
+                    titleFont: { family: 'Montserrat' },
+                    bodyFont: { family: 'Manrope' }
+                }
             },
-            cutout: '60%'
+            cutout: '65%'
         }
     });
 };
@@ -562,9 +581,9 @@ const loadClientDetail = async (clientId) => {
         document.getElementById('detail-total-profit').textContent = formatCurrency(client.totalProfit);
 
         if (client.totalProfit < 0) {
-            document.getElementById('detail-total-profit').style.color = 'var(--accent-red)';
+            document.getElementById('detail-total-profit').style.color = 'var(--danger)';
         } else {
-            document.getElementById('detail-total-profit').style.color = 'var(--accent-emerald)';
+            document.getElementById('detail-total-profit').style.color = 'var(--success)';
         }
 
         // Set Client ID on add investment modal hidden input
@@ -578,7 +597,7 @@ const loadClientDetail = async (clientId) => {
         tbody.innerHTML = '';
 
         if (holdings.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-secondary);">No investments recorded for this client yet. Click 'Record Purchase' to start!</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--muted-foreground);">No investments recorded for this client yet. Click 'Record Purchase' to start!</td></tr>`;
         } else {
             holdings.forEach(inv => {
                 const invYield = inv.investedAmount > 0 
@@ -587,15 +606,15 @@ const loadClientDetail = async (clientId) => {
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td style="font-weight: 700; color: #fff;">${inv.schemeName}</td>
+                    <td style="font-weight: 600; color: #ffffff;">${inv.schemeName}</td>
                     <td><span class="badge ${inv.partner === 'IIFL' ? 'badge-emerald' : 'badge-purple'}">${inv.partner.replace('_', ' ')}</span></td>
                     <td><span class="badge badge-blue">${inv.type}</span></td>
                     <td>${inv.units.toFixed(2)}</td>
                     <td>₹${inv.buyPrice.toFixed(2)}</td>
-                    <td><span style="font-weight:600;">₹${inv.currentPrice.toFixed(2)}</span></td>
+                    <td><span style="font-weight: 600;">₹${inv.currentPrice.toFixed(2)}</span></td>
                     <td>${formatCurrency(inv.investedAmount)}</td>
-                    <td><span style="color: var(--accent-purple); font-weight:700;">${formatCurrency(inv.currentValue)}</span></td>
-                    <td style="color: ${invYield >= 0 ? 'var(--accent-emerald)' : 'var(--accent-red)'}; font-weight:600;">
+                    <td><span style="font-weight: 600; color: #ffffff;">${formatCurrency(inv.currentValue)}</span></td>
+                    <td style="color: ${invYield >= 0 ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">
                         ${invYield >= 0 ? '+' : ''}${invYield.toFixed(2)}%
                     </td>
                 `;
@@ -611,7 +630,7 @@ const loadClientDetail = async (clientId) => {
         txTbody.innerHTML = '';
 
         if (transactions.length === 0) {
-            txTbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-secondary);">No logs recorded.</td></tr>`;
+            txTbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--muted-foreground);">No logs recorded.</td></tr>`;
         } else {
             transactions.forEach(tx => {
                 const formattedDate = new Date(tx.transactionDate).toLocaleDateString('en-IN', {
@@ -620,9 +639,9 @@ const loadClientDetail = async (clientId) => {
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td style="font-size:0.75rem; color: var(--text-secondary);">${formattedDate}</td>
-                    <td><span class="badge" style="background: ${tx.type === 'BUY' ? 'rgba(16,185,129,0.1)' : 'rgba(139,92,246,0.1)'}; color: ${tx.type === 'BUY' ? 'var(--accent-emerald)' : 'var(--accent-purple)'}">${tx.type}</span></td>
-                    <td style="font-weight:600;">${formatCurrency(tx.amount)}</td>
+                    <td style="font-size: 0.75rem; color: var(--muted-foreground); font-family: var(--font-mono);">${formattedDate}</td>
+                    <td><span class="badge ${tx.type === 'BUY' ? 'badge-emerald' : 'badge-purple'}">${tx.type}</span></td>
+                    <td style="font-weight: 600; font-family: var(--font-display);">${formatCurrency(tx.amount)}</td>
                 `;
                 txTbody.appendChild(row);
             });
@@ -650,7 +669,7 @@ const renderClientsViewTable = (clients) => {
     tbody.innerHTML = '';
 
     if (clients.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-secondary);">No clients found.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--muted-foreground);">No clients found.</td></tr>`;
         return;
     }
 
@@ -662,25 +681,25 @@ const renderClientsViewTable = (clients) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                <div style="font-weight: 700; color: #fff;">${client.user.fullName}</div>
-                <div style="font-size: 0.75rem; color: var(--text-secondary);">@${client.user.username}</div>
+                <div style="font-weight: 600; color: #ffffff;">${client.user.fullName}</div>
+                <div style="font-size: 0.75rem; color: var(--muted-foreground); font-family: var(--font-mono);">@${client.user.username}</div>
             </td>
             <td>
                 <div>${client.user.email}</div>
-                <div style="font-size: 0.8rem; color: var(--text-secondary);">${client.phoneNumber}</div>
+                <div style="font-size: 0.8rem; color: var(--muted-foreground); font-family: var(--font-mono);">${client.phoneNumber}</div>
             </td>
             <td><code class="badge badge-purple">${client.panNumber}</code></td>
-            <td>${formatCurrency(client.totalInvested)}</td>
-            <td><span style="color: var(--accent-purple); font-weight: 700;">${formatCurrency(client.currentValue)}</span></td>
+            <td style="font-family: var(--font-display);">${formatCurrency(client.totalInvested)}</td>
+            <td style="font-family: var(--font-display);"><span style="font-weight: 600; color: #ffffff;">${formatCurrency(client.currentValue)}</span></td>
             <td>
-                <span class="badge ${yieldPct >= 0 ? 'badge-emerald' : 'badge-red'}" style="${yieldPct < 0 ? 'background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);' : ''}">
+                <span class="badge ${yieldPct >= 0 ? 'badge-emerald' : 'badge-red'}">
                     ${yieldPct >= 0 ? '+' : ''}${yieldPct.toFixed(2)}%
                 </span>
             </td>
             <td>
-                <button class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;" onclick="loadClientDetail(${client.id})">
+                <button class="btn btn-soft" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;" onclick="loadClientDetail(${client.id})">
                     <ion-icon name="open-outline"></ion-icon>
-                    <span>View Sheet</span>
+                    <span>View details</span>
                 </button>
             </td>
         `;
@@ -819,14 +838,14 @@ const toggleAdminTab = (tabId) => {
         btnClients.classList.add('active');
         btnClients.style.color = '#fff';
         btnAssets.classList.remove('active');
-        btnAssets.style.color = 'var(--text-secondary)';
+        btnAssets.style.color = 'var(--muted-foreground)';
         contentClients.style.display = 'block';
         contentAssets.style.display = 'none';
     } else {
         btnAssets.classList.add('active');
         btnAssets.style.color = '#fff';
         btnClients.classList.remove('active');
-        btnClients.style.color = 'var(--text-secondary)';
+        btnClients.style.color = 'var(--muted-foreground)';
         contentClients.style.display = 'none';
         contentAssets.style.display = 'block';
         loadMasterHoldings();
@@ -848,7 +867,7 @@ const renderMasterHoldingsTable = (assets) => {
     tbody.innerHTML = '';
 
     if (assets.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-secondary);">No client holdings logged. Click 'Import Sheets/Excel' or record purchases to populate!</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--muted-foreground);">No client holdings logged. Click 'Import Sheets/Excel' or record purchases to populate!</td></tr>`;
         return;
     }
 
@@ -860,18 +879,18 @@ const renderMasterHoldingsTable = (assets) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                <div style="font-weight: 700; color: #fff;">${inv.client.user.fullName}</div>
-                <div style="font-size: 0.75rem; color: var(--text-secondary);">PAN: ${inv.client.panNumber}</div>
+                <div style="font-weight: 600; color: #ffffff;">${inv.client.user.fullName}</div>
+                <div style="font-size: 0.75rem; color: var(--muted-foreground); font-family: var(--font-mono);">PAN: ${inv.client.panNumber}</div>
             </td>
-            <td style="font-weight: 600; color: #fff;">${inv.schemeName}</td>
+            <td style="font-weight: 600; color: #ffffff;">${inv.schemeName}</td>
             <td><span class="badge ${inv.partner === 'IIFL' ? 'badge-emerald' : 'badge-purple'}">${inv.partner.replace('_', ' ')}</span></td>
             <td><span class="badge badge-blue">${inv.type}</span></td>
             <td>${inv.units.toFixed(2)}</td>
             <td>₹${inv.buyPrice.toFixed(2)}</td>
-            <td><span style="font-weight:600;">₹${inv.currentPrice.toFixed(2)}</span></td>
-            <td>${formatCurrency(inv.investedAmount)}</td>
-            <td><span style="color: var(--accent-purple); font-weight:700;">${formatCurrency(inv.currentValue)}</span></td>
-            <td style="color: ${invYield >= 0 ? 'var(--accent-emerald)' : 'var(--accent-red)'}; font-weight:600;">
+            <td><span style="font-weight: 600;">₹${inv.currentPrice.toFixed(2)}</span></td>
+            <td style="font-family: var(--font-display);">${formatCurrency(inv.investedAmount)}</td>
+            <td style="font-family: var(--font-display);"><span style="font-weight: 600; color: #ffffff;">${formatCurrency(inv.currentValue)}</span></td>
+            <td style="color: ${invYield >= 0 ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">
                 ${invYield >= 0 ? '+' : ''}${invYield.toFixed(2)}%
             </td>
         `;
