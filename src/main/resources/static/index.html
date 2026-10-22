@@ -28,6 +28,34 @@
                 }
             } catch (e) {}
         })();
+
+        function toggleTheme() {
+            var html = document.documentElement;
+            var isCurrentlyDark = html.classList.contains('dark');
+            var nextTheme = isCurrentlyDark ? 'light' : 'dark';
+            if (nextTheme === 'light') {
+                html.classList.remove('dark');
+                html.classList.add('light');
+            } else {
+                html.classList.add('dark');
+                html.classList.remove('light');
+            }
+            try {
+                localStorage.setItem('theme', nextTheme);
+            } catch (e) {}
+
+            var themeButtons = document.querySelectorAll('.btn-theme-toggle, #btn-theme-toggle');
+            if (themeButtons && themeButtons.forEach) {
+                themeButtons.forEach(function(btn) {
+                    if (btn && btn.setAttribute) {
+                        btn.setAttribute('aria-label', (nextTheme === 'light') ? 'Switch to dark theme' : 'Switch to light theme');
+                        btn.setAttribute('title', (nextTheme === 'light') ? 'Switch to dark theme' : 'Switch to light theme');
+                    }
+                });
+            }
+            return nextTheme;
+        }
+        window.toggleTheme = toggleTheme;
     </script>
 </head>
 <body>
@@ -74,7 +102,7 @@
                 <div class="landing-header-actions">
                     <button type="button" id="btn-theme-toggle" class="btn btn-outline btn-theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
                         <ion-icon name="moon-outline" id="theme-icon-dark" class="theme-icon-dark" aria-hidden="true"></ion-icon>
-                        <ion-icon name="sunny-outline" id="theme-icon-light" class="theme-icon-light" style="display: none;" aria-hidden="true"></ion-icon>
+                        <ion-icon name="sunny-outline" id="theme-icon-light" class="theme-icon-light" aria-hidden="true"></ion-icon>
                         <span id="theme-toggle-text" class="theme-toggle-text">Theme</span>
                     </button>
                     <button type="button" id="btn-nav-portal" class="btn btn-outline btn-asym-mirror btn-outline-asym" onclick="openAuthModal()">

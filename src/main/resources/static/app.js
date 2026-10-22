@@ -151,14 +151,27 @@ const applyTheme = (theme, persist = true) => {
     updateThemeUI(isLight);
 };
 
-const toggleTheme = () => {
-    const isCurrentlyLight = (typeof document !== 'undefined' && document.documentElement && document.documentElement.classList)
-        ? (document.documentElement.classList.contains('light') || !document.documentElement.classList.contains('dark'))
-        : false;
-    const nextTheme = isCurrentlyLight ? 'dark' : 'light';
-    applyTheme(nextTheme, true);
+function toggleTheme() {
+    var html = (typeof document !== 'undefined') ? document.documentElement : null;
+    if (!html || !html.classList) return 'dark';
+    var isDark = html.classList.contains('dark');
+    var nextTheme = isDark ? 'light' : 'dark';
+    if (nextTheme === 'light') {
+        html.classList.remove('dark');
+        html.classList.add('light');
+    } else {
+        html.classList.add('dark');
+        html.classList.remove('light');
+    }
+    try {
+        if (typeof localStorage !== 'undefined' && typeof localStorage.setItem === 'function') {
+            localStorage.setItem('theme', nextTheme);
+        }
+    } catch (e) {}
+
+    updateThemeUI(nextTheme === 'light');
     return nextTheme;
-};
+}
 
 const initTheme = () => {
     const pref = getPreferredTheme();

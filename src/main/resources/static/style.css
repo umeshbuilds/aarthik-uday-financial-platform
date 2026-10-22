@@ -2524,28 +2524,233 @@ html.light .footer-col ul li a:hover {
     color: #171717;
 }
 
+/* ==========================================================================
+   High-Contrast Light Mode Overrides for Senior Readability
+   ========================================================================== */
+html:not(.dark) body,
+html.light body,
+html:not(.dark) .public-landing,
+html.light .public-landing,
+html:not(.dark) .app-container,
+html.light .app-container,
+html:not(.dark) .main-content,
+html.light .main-content {
+    background-color: #fbfaf8 !important;
+    color: #171717 !important;
+}
+
+/* Headings and titles */
+html:not(.dark) .hero-title,
+html.light .hero-title,
+html:not(.dark) .section-title,
+html.light .section-title,
+html:not(.dark) .landing-header .brand-name,
+html.light .landing-header .brand-name,
+html:not(.dark) .footer-col .brand-name,
+html.light .footer-col .brand-name,
+html:not(.dark) .metric-figure,
+html.light .metric-figure,
+html:not(.dark) .metric-label,
+html.light .metric-label,
+html:not(.dark) .service-title,
+html.light .service-title,
+html:not(.dark) .extended-title,
+html.light .extended-title,
+html:not(.dark) .chip-content strong,
+html.light .chip-content strong,
+html:not(.dark) .partner-name,
+html.light .partner-name,
+html:not(.dark) .product-title,
+html.light .product-title,
+html:not(.dark) .founder-name,
+html.light .founder-name,
+html:not(.dark) .founder-quote,
+html.light .founder-quote,
+html:not(.dark) .principles-title,
+html.light .principles-title,
+html:not(.dark) .principle-heading,
+html.light .principle-heading,
+html:not(.dark) .process-step-title,
+html.light .process-step-title,
+html:not(.dark) .testimonial-name,
+html.light .testimonial-name,
+html:not(.dark) .testimonial-quote,
+html.light .testimonial-quote,
+html:not(.dark) .faq-question,
+html.light .faq-question,
+html:not(.dark) .direct-title,
+html.light .direct-title,
+html:not(.dark) .disclaimer-heading,
+html.light .disclaimer-heading,
+html:not(.dark) .footer-col-title,
+html.light .footer-col-title,
+html:not(.dark) .consultation-title,
+html.light .consultation-title,
+html:not(.dark) .header-title h1,
+html.light .header-title h1,
+html:not(.dark) .chart-title,
+html.light .chart-title,
+html:not(.dark) .panel-title,
+html.light .panel-title,
+html:not(.dark) .stat-value,
+html.light .stat-value,
+html:not(.dark) .stat-label,
+html.light .stat-label,
+html:not(.dark) .auth-header h2,
+html.light .auth-header h2,
+html:not(.dark) .modal-header h2,
+html.light .modal-header h2,
+html:not(.dark) .profile-value,
+html.light .profile-value,
+html:not(.dark) h1,
+html.light h1,
+html:not(.dark) h2,
+html.light h2,
+html:not(.dark) h3,
+html.light h3,
+html:not(.dark) h4,
+html.light h4 {
+    color: #171717 !important;
+}
+
+/* Paragraphs and copy text */
+html:not(.dark) p,
+html.light p,
+html:not(.dark) .service-desc,
+html.light .service-desc,
+html:not(.dark) .product-desc,
+html.light .product-desc,
+html:not(.dark) .principle-desc,
+html.light .principle-desc,
+html:not(.dark) .process-step-desc,
+html.light .process-step-desc,
+html:not(.dark) .founder-bio,
+html.light .founder-bio,
+html:not(.dark) .testimonial-role,
+html.light .testimonial-role,
+html:not(.dark) .faq-answer,
+html.light .faq-answer,
+html:not(.dark) .footer-desc,
+html.light .footer-desc,
+html:not(.dark) .compliance-disclaimer,
+html.light .compliance-disclaimer,
+html:not(.dark) .hero-lead,
+html.light .hero-lead,
+html:not(.dark) .section-lead,
+html.light .section-lead,
+html:not(.dark) .metric-sub,
+html.light .metric-sub,
+html:not(.dark) .consultation-desc,
+html.light .consultation-desc {
+    color: #44403c !important;
+}
+
+/* Highlight phrase */
+html:not(.dark) .highlight,
+html.light .highlight {
+    color: #854d0e !important;
+}
+
+/* Cards and panels */
+html:not(.dark) .card-chai,
+html.light .card-chai,
+html:not(.dark) .metric-card,
+html.light .metric-card,
+html:not(.dark) .service-card,
+html.light .service-card,
+html:not(.dark) .extended-services-card,
+html.light .extended-services-card,
+html:not(.dark) .product-card,
+html.light .product-card,
+html:not(.dark) .founder-card,
+html.light .founder-card,
+html:not(.dark) .principle-card,
+html.light .principle-card,
+html:not(.dark) .process-card,
+html.light .process-card,
+html:not(.dark) .testimonial-card,
+html.light .testimonial-card,
+html:not(.dark) .faq-item,
+html.light .faq-item,
+html:not(.dark) .consultation-card,
+html.light .consultation-card,
+html:not(.dark) .stat-card,
+html.light .stat-card,
+html:not(.dark) .chart-card,
+html.light .chart-card,
+html:not(.dark) .table-panel,
+html.light .table-panel,
+html:not(.dark) .profile-card,
+html.light .profile-card {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(120, 53, 15, 0.16) !important;
+    box-shadow: none !important;
+}
+
 /* Theme toggle button specific styling */
 .btn-theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.5rem 0.85rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    border-radius: 9999px;
-    cursor: pointer;
-    color: var(--foreground);
-    border: 1px solid var(--card-edge);
-    background: transparent;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+    padding: 0.5rem 0.85rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    border-radius: 9999px !important;
+    cursor: pointer !important;
+    color: var(--foreground) !important;
+    border: 1px solid var(--card-edge) !important;
+    background: transparent !important;
     box-shadow: none !important;
-    transition: var(--transition);
-    line-height: 1;
+    transition: var(--transition) !important;
+    line-height: 1 !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
 }
+
 .btn-theme-toggle:hover {
-    border-color: var(--card-edge-hover);
-    color: var(--foreground);
+    border-color: var(--card-edge-hover) !important;
+    color: var(--foreground) !important;
 }
+
+html:not(.dark) .btn-theme-toggle,
+html.light .btn-theme-toggle {
+    color: #171717 !important;
+    border-color: rgba(120, 53, 15, 0.28) !important;
+    background: rgba(0, 0, 0, 0.02) !important;
+}
+
+html:not(.dark) .btn-theme-toggle:hover,
+html.light .btn-theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.06) !important;
+    border-color: rgba(120, 53, 15, 0.45) !important;
+}
+
 .btn-theme-toggle ion-icon {
-    font-size: 1.1rem;
+    font-size: 1.15rem !important;
+    pointer-events: none !important;
+}
+
+.btn-theme-toggle span {
+    pointer-events: none !important;
+}
+
+/* CSS-driven icon switching - guarantees instantaneous icon swap */
+html.dark .theme-icon-dark,
+html:not(.light) .theme-icon-dark {
+    display: inline-block !important;
+}
+html.dark .theme-icon-light,
+html:not(.light) .theme-icon-light {
+    display: none !important;
+}
+
+html.light .theme-icon-dark,
+html:not(.dark) .theme-icon-dark {
+    display: none !important;
+}
+html.light .theme-icon-light,
+html:not(.dark) .theme-icon-light {
+    display: inline-block !important;
 }
 
