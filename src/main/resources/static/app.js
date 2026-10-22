@@ -32,6 +32,14 @@ const showLandingView = () => {
 };
 
 const openAuthModal = () => {
+    if (currentUser) {
+        const landing = document.getElementById('public-landing');
+        if (landing) landing.style.display = 'none';
+        const appContainer = document.getElementById('app-container');
+        if (appContainer) appContainer.style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+    }
     const overlay = document.getElementById('auth-overlay');
     if (overlay) {
         overlay.style.display = 'flex';
@@ -73,11 +81,11 @@ const switchView = (viewId) => {
 
     // Set corresponding sidebar nav active
     if (viewId === 'admin-dashboard') {
-        document.getElementById('nav-admin-dashboard').classList.add('active');
+        document.getElementById('nav-admin-dashboard')?.classList.add('active');
     } else if (viewId === 'admin-clients' || viewId === 'client-details') {
         document.getElementById('nav-admin-clients')?.classList.add('active');
     } else if (viewId === 'client-dashboard') {
-        document.getElementById('nav-client-dashboard').classList.add('active');
+        document.getElementById('nav-client-dashboard')?.classList.add('active');
     }
 };
 
@@ -94,23 +102,34 @@ const checkSession = async () => {
             if (landing) landing.style.display = 'none';
 
             // Set User info in badge
-            document.getElementById('user-display-name').textContent = currentUser.fullName;
-            document.getElementById('user-display-role').textContent = currentUser.role.replace('ROLE_', '');
+            const nameEl = document.getElementById('user-display-name');
+            if (nameEl) nameEl.textContent = currentUser.fullName || currentUser.username;
+            const roleEl = document.getElementById('user-display-role');
+            if (roleEl) roleEl.textContent = (currentUser.role || '').replace('ROLE_', '');
 
             // Configure views and sidebar depending on the role
-            document.getElementById('auth-overlay').style.display = 'none';
-            document.getElementById('app-container').style.display = 'flex';
+            const authOverlay = document.getElementById('auth-overlay');
+            if (authOverlay) authOverlay.style.display = 'none';
+            const appContainer = document.getElementById('app-container');
+            if (appContainer) appContainer.style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'instant' });
 
             if (currentUser.role === 'ROLE_ADMIN') {
-                document.getElementById('nav-admin-dashboard').style.display = 'block';
-                document.getElementById('nav-admin-clients').style.display = 'block';
-                document.getElementById('nav-client-dashboard').style.display = 'none';
+                const navAdmin = document.getElementById('nav-admin-dashboard');
+                if (navAdmin) navAdmin.style.display = 'block';
+                const navClients = document.getElementById('nav-admin-clients');
+                if (navClients) navClients.style.display = 'block';
+                const navClient = document.getElementById('nav-client-dashboard');
+                if (navClient) navClient.style.display = 'none';
                 switchView('admin-dashboard');
                 loadAdminDashboard();
             } else if (currentUser.role === 'ROLE_CLIENT') {
-                document.getElementById('nav-admin-dashboard').style.display = 'none';
-                document.getElementById('nav-admin-clients').style.display = 'none';
-                document.getElementById('nav-client-dashboard').style.display = 'block';
+                const navAdmin = document.getElementById('nav-admin-dashboard');
+                if (navAdmin) navAdmin.style.display = 'none';
+                const navClients = document.getElementById('nav-admin-clients');
+                if (navClients) navClients.style.display = 'none';
+                const navClient = document.getElementById('nav-client-dashboard');
+                if (navClient) navClient.style.display = 'block';
                 switchView('client-dashboard');
                 loadClientDashboard();
             }
@@ -140,12 +159,15 @@ const handleLogin = async (event) => {
     const passwordEl = document.getElementById('login-password');
     const errorEl = document.getElementById('auth-error');
 
-    errorEl.style.display = 'none';
+    if (errorEl) errorEl.style.display = 'none';
 
     try {
+        const username = (usernameEl ? usernameEl.value : '').trim();
+        const password = passwordEl ? passwordEl.value : '';
+
         const params = new URLSearchParams();
-        params.append('username', usernameEl.value);
-        params.append('password', passwordEl.value);
+        params.append('username', username);
+        params.append('password', password);
 
         const response = await fetch('/login', {
             method: 'POST',
@@ -158,17 +180,23 @@ const handleLogin = async (event) => {
         const data = await response.json();
 
         if (response.ok && data.success) {
-            usernameEl.value = '';
-            passwordEl.value = '';
-            checkSession();
+            if (usernameEl) usernameEl.value = '';
+            if (passwordEl) passwordEl.value = '';
+            closeAuthModal();
+            await checkSession();
+            window.scrollTo({ top: 0, behavior: 'instant' });
         } else {
-            errorEl.style.display = 'block';
-            errorEl.textContent = data.message || 'Invalid username or password.';
+            if (errorEl) {
+                errorEl.style.display = 'block';
+                errorEl.textContent = data.message || 'Invalid username or password.';
+            }
         }
     } catch (err) {
         console.error('Login error:', err);
-        errorEl.style.display = 'block';
-        errorEl.textContent = 'Server connection failed. Try again.';
+        if (errorEl) {
+            errorEl.style.display = 'block';
+            errorEl.textContent = 'Server connection failed. Try again.';
+        }
     }
 };
 

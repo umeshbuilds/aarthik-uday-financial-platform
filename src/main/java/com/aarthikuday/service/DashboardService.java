@@ -95,8 +95,23 @@ public class DashboardService {
     }
 
     public Map<String, Object> getClientDashboardStats(String username) {
-        Client client = clientRepository.findByUserUsername(username)
-                .orElseThrow(() -> new RuntimeException("Client not found for username: " + username));
+        Client client = clientRepository.findByUserUsername(username).orElse(null);
+
+        if (client == null) {
+            Map<String, Object> emptyStats = new HashMap<>();
+            emptyStats.put("clientId", 0L);
+            emptyStats.put("fullName", username);
+            emptyStats.put("totalInvested", BigDecimal.ZERO);
+            emptyStats.put("currentValue", BigDecimal.ZERO);
+            emptyStats.put("totalProfit", BigDecimal.ZERO);
+            emptyStats.put("njWealthValue", BigDecimal.ZERO);
+            emptyStats.put("iiflValue", BigDecimal.ZERO);
+            emptyStats.put("sipValue", BigDecimal.ZERO);
+            emptyStats.put("swpValue", BigDecimal.ZERO);
+            emptyStats.put("insuranceValue", BigDecimal.ZERO);
+            emptyStats.put("stocksValue", BigDecimal.ZERO);
+            return emptyStats;
+        }
 
         List<Investment> investments = investmentRepository.findByClientId(client.getId());
 
