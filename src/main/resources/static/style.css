@@ -339,7 +339,7 @@ body {
 
 /* Asymmetric corner solid button (one per screen) */
 .btn-solid, .btn-asym {
-    border-radius: 0 var(--radius) 0 var(--radius);
+    border-radius: 0 10px 0 10px;
     background-color: #ffffff;
     color: #0a0a0a !important;
     font-family: var(--font-sans);
@@ -352,7 +352,7 @@ body {
 
 /* Beside it: mirrored asymmetric corners */
 .btn-outline, .btn-asym-mirror {
-    border-radius: var(--radius) 0 var(--radius) 0;
+    border-radius: 10px 0 10px 0;
     background-color: transparent;
     border: 1px solid var(--subtle-border);
     color: #fcfcfc !important;
@@ -390,6 +390,49 @@ body {
 
 .btn-danger:hover {
     background: rgba(239, 68, 68, 0.22);
+}
+
+/* ==========================================================================
+   Live Valuation Ticker (ChaiUI Look: No drop shadows, hairline edge, Geist Mono figures)
+   ========================================================================== */
+.live-ticker {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.625rem 1rem;
+    margin-bottom: 1.5rem;
+    background: var(--card-fill);
+    border: 1px solid var(--card-edge);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    box-shadow: none !important;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+}
+
+.ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.ticker-symbol {
+    color: var(--muted-foreground);
+    font-weight: 500;
+}
+
+.ticker-price {
+    color: var(--foreground);
+    font-weight: 600;
+}
+
+.ticker-up {
+    color: var(--success);
+}
+
+.ticker-down {
+    color: var(--danger);
 }
 
 /* ==========================================================================
@@ -643,6 +686,7 @@ tbody tr:hover {
 }
 
 .auth-card {
+    position: relative;
     width: 100%;
     max-width: 400px;
     padding: 2.5rem 2rem;
@@ -650,7 +694,15 @@ tbody tr:hover {
     border-radius: calc(var(--radius) + 8px);
     border: 1px solid var(--card-edge);
     background: #0f0f0f;
-    box-shadow: none;
+    box-shadow: none !important;
+}
+
+.auth-card .modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-size: 1.5rem;
+    line-height: 1;
 }
 
 .auth-header {
@@ -917,6 +969,1213 @@ tbody tr:hover {
     
     .search-input {
         width: 100%;
+    }
+}
+
+/* ==========================================================================
+   PUBLIC ADVISORY MARKETING WEBSITE STYLES (ChaiUI Design System)
+   ========================================================================== */
+
+.public-landing {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--background);
+    color: var(--foreground);
+    position: relative;
+    z-index: 10;
+}
+
+/* 1. Sticky Glassmorphic Header */
+.landing-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--subtle-border);
+    transition: var(--transition);
+}
+
+.landing-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.875rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.landing-header .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--foreground);
+}
+
+.landing-header .brand-logo {
+    width: 32px;
+    height: 32px;
+}
+
+.landing-header .brand-name {
+    font-family: var(--font-brand);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+}
+
+.landing-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+}
+
+.landing-nav .nav-link {
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    transition: var(--transition);
+}
+
+.landing-nav .nav-link:hover {
+    color: var(--foreground);
+}
+
+.landing-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* 2. Hero Section */
+.hero-section {
+    padding: 5rem 1.5rem 4rem;
+    text-align: center;
+    position: relative;
+}
+
+.hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-title {
+    font-family: var(--font-sans);
+    font-size: 2.75rem;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    margin-top: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .hero-title {
+        font-size: 3.75rem;
+    }
+}
+
+.hero-lead {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    max-width: 680px;
+    margin-bottom: 2.25rem;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+}
+
+/* 3. Performance Metrics Counters */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.metric-card {
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+    transition: var(--transition);
+}
+
+.metric-card:hover {
+    border-color: var(--card-edge-hover);
+}
+
+.metric-figure {
+    font-family: var(--font-mono);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+}
+
+.metric-label {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 0.35rem;
+}
+
+.metric-sub {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--muted-foreground);
+    margin: 0;
+}
+
+/* 4. Common Section Layout */
+.landing-section {
+    padding: 5rem 1.5rem;
+    position: relative;
+}
+
+.landing-section-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.section-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3.5rem;
+}
+
+.section-eyebrow {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    border: 1px solid var(--subtle-border);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.section-title {
+    font-family: var(--font-sans);
+    font-size: 2.125rem;
+    line-height: 1.25;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+}
+
+.section-lead {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    margin: 0;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.service-card {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+    transition: var(--transition);
+}
+
+.service-card:hover {
+    border-color: var(--card-edge-hover);
+}
+
+.service-step-badge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    margin-bottom: 0.75rem;
+}
+
+.service-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+.service-body {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    margin-bottom: 1.25rem;
+}
+
+.service-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.service-checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--foreground);
+    line-height: 1.45;
+}
+
+.service-checklist li ion-icon {
+    font-size: 1rem;
+    color: #10b981;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.service-action {
+    margin-top: auto;
+}
+
+/* Extended Services */
+.extended-services-card {
+    padding: 2rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+}
+
+.extended-header {
+    margin-bottom: 1.5rem;
+}
+
+.extended-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+}
+
+.extended-sub {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--muted-foreground);
+    margin: 0;
+}
+
+.extended-chips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.extended-chip {
+    display: flex;
+    gap: 0.85rem;
+    padding: 1rem;
+    border-radius: calc(var(--radius) - 2px);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--subtle-border);
+}
+
+.chip-num {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--muted-foreground);
+    font-weight: 600;
+}
+
+.chip-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.chip-content strong {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.chip-content span {
+    font-family: var(--font-sans);
+    font-size: 0.775rem;
+    line-height: 1.4;
+    color: var(--muted-foreground);
+}
+
+/* 5. Products Section */
+.partners-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+    margin-bottom: 2rem;
+}
+
+.partner-card .partner-meta {
+    margin-bottom: 0.5rem;
+}
+
+.partner-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-foreground);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.partner-name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.partner-desc {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: var(--muted-foreground);
+    margin: 0;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+.product-card {
+    padding: 1.75rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+    transition: var(--transition);
+}
+
+.product-card:hover {
+    border-color: var(--card-edge-hover);
+}
+
+.product-badge {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    border: 1px solid var(--subtle-border);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    align-self: flex-start;
+    margin-bottom: 0.6rem;
+}
+
+.product-partner-label {
+    font-family: var(--font-mono);
+    font-size: 0.725rem;
+    color: var(--muted-foreground);
+    margin-bottom: 0.5rem;
+}
+
+.product-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.6rem;
+}
+
+.product-desc {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: var(--muted-foreground);
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+}
+
+.product-specs {
+    border-top: 1px solid var(--subtle-border);
+    padding-top: 0.75rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.spec-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+}
+
+.spec-key {
+    font-family: var(--font-sans);
+    color: var(--muted-foreground);
+}
+
+.spec-val {
+    font-family: var(--font-mono);
+    color: var(--foreground);
+}
+
+.product-action {
+    margin-top: auto;
+}
+
+.product-action .btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* 6. Founder Section */
+.founder-card {
+    padding: 3rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+}
+
+.founder-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    align-items: start;
+}
+
+.founder-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.founder-avatar-box {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-edge);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+.founder-avatar-initials {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.founder-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+}
+
+.founder-role {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 0.25rem;
+}
+
+.founder-credential {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--muted-foreground);
+    margin-bottom: 1.25rem;
+}
+
+.founder-badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.founder-quote {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #ffffff;
+    font-style: italic;
+    border-left: 2px solid var(--card-edge);
+    padding-left: 1.25rem;
+    margin: 0 0 1.5rem 0;
+}
+
+.founder-bio-p {
+    font-family: var(--font-sans);
+    font-size: 0.925rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+    margin-bottom: 1.25rem;
+}
+
+.principles-header {
+    border-top: 1px solid var(--subtle-border);
+    padding-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.principles-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.principles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+.principle-item {
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+}
+
+.principle-num {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    margin-bottom: 0.75rem;
+}
+
+.principle-heading {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.principle-copy {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--muted-foreground);
+    margin: 0;
+}
+
+/* 7. Four-Step Process */
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+.process-card {
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+}
+
+.process-card:hover {
+    border-color: var(--card-edge-hover);
+}
+
+.process-step-num {
+    font-family: var(--font-mono);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--muted-foreground);
+    margin-bottom: 1rem;
+}
+
+.process-step-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+.process-step-desc {
+    font-family: var(--font-sans);
+    font-size: 0.825rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.process-deliverable {
+    border-top: 1px solid var(--subtle-border);
+    padding-top: 0.75rem;
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.deliverable-label {
+    font-family: var(--font-mono);
+    color: var(--muted-foreground);
+    font-weight: 600;
+}
+
+.deliverable-text {
+    font-family: var(--font-sans);
+    color: var(--foreground);
+    line-height: 1.4;
+}
+
+/* 8. Social Proof & Testimonials */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.testimonial-card {
+    padding: 2rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.testimonial-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-edge);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.testimonial-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-name {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.15rem;
+}
+
+.testimonial-role {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+}
+
+.testimonial-text {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--foreground);
+    margin: 0;
+    font-style: italic;
+}
+
+/* 9. Advisory FAQ Accordion */
+.faq-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.faq-item {
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.faq-trigger {
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    gap: 1rem;
+}
+
+.faq-question {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.faq-icon {
+    font-size: 1.15rem;
+    color: var(--muted-foreground);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.faq-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 1.5rem;
+}
+
+.faq-item.active .faq-body {
+    max-height: 250px;
+    padding: 0 1.5rem 1.25rem;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    color: #ffffff;
+}
+
+.faq-answer {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: var(--muted-foreground);
+    margin: 0;
+}
+
+/* 10. Diagnostic Consultation Form */
+.consultation-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.consultation-card {
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+}
+
+.consultation-card .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 0;
+}
+
+.consultation-card .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.consultation-feedback {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--card-edge);
+    font-size: 0.85rem;
+    font-family: var(--font-sans);
+    line-height: 1.5;
+}
+
+.whatsapp-direct-box {
+    padding: 2.25rem 1.75rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.direct-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-edge);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+}
+
+.direct-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.direct-desc {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    margin-bottom: 1.5rem;
+}
+
+.direct-wa-btn {
+    width: 100%;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* 11. Statutory Compliance Card */
+.compliance-section {
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+}
+
+.statutory-disclaimer-card {
+    padding: 2rem 2.25rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-edge);
+    background: var(--card-fill);
+    box-shadow: none !important;
+}
+
+.disclaimer-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+}
+
+.disclaimer-icon {
+    font-size: 1.35rem;
+    color: #10b981;
+}
+
+.disclaimer-heading {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.disclaimer-text {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    margin-bottom: 0.75rem;
+}
+
+.disclaimer-text:last-child {
+    margin-bottom: 0;
+}
+
+/* 12. Udaipur Office Contact & Footer */
+.landing-footer {
+    position: relative;
+    border-top: 1px solid rgba(245, 158, 11, 0.1);
+    background: var(--background);
+    padding: 4rem 1.5rem 2.5rem;
+}
+
+.landing-footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.footer-col .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    margin-bottom: 1rem;
+}
+
+.footer-col .brand-logo {
+    width: 32px;
+    height: 32px;
+}
+
+.footer-col .brand-name {
+    font-family: var(--font-brand);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.footer-desc {
+    font-family: var(--font-sans);
+    font-size: 0.825rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    max-width: 320px;
+    margin: 0;
+}
+
+.footer-col-title {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-link {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-link:hover {
+    color: var(--brand);
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+    margin-bottom: 0.75rem;
+}
+
+.footer-contact-item ion-icon {
+    font-size: 1.1rem;
+    color: var(--foreground);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--subtle-border);
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-copy {
+    font-family: var(--font-sans);
+    font-size: 0.775rem;
+    color: var(--muted-foreground);
+}
+
+.footer-legal {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.footer-dot {
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+}
+
+/* Landing responsive queries */
+@media (max-width: 992px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .extended-chips-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .founder-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .principles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .consultation-container {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .landing-nav {
+        display: none;
+    }
+
+    .hero-title {
+        font-size: 2.25rem;
+    }
+
+    .hero-section {
+        padding: 3.5rem 1rem 2.5rem;
+    }
+
+    .landing-section {
+        padding: 3.5rem 1rem;
+    }
+
+    .partners-bar {
+        grid-template-columns: 1fr;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .principles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .founder-card {
+        padding: 1.75rem;
+    }
+
+    .consultation-card {
+        padding: 1.75rem;
+    }
+
+    .consultation-card .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 

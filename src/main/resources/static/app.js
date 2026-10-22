@@ -18,6 +18,45 @@ const formatCurrency = (val) => {
     }).format(val || 0);
 };
 
+// =========================================================================
+// PUBLIC LANDING & MODAL VIEW CONTROLLERS (PROJECT.md Interface Contract)
+// =========================================================================
+const showLandingView = () => {
+    const landing = document.getElementById('public-landing');
+    if (landing) landing.style.display = 'block';
+    const authOverlay = document.getElementById('auth-overlay');
+    if (authOverlay) authOverlay.style.display = 'none';
+    const appContainer = document.getElementById('app-container');
+    if (appContainer) appContainer.style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const openAuthModal = () => {
+    const overlay = document.getElementById('auth-overlay');
+    if (overlay) {
+        overlay.style.display = 'flex';
+        const userField = document.getElementById('login-username');
+        if (userField) userField.focus();
+    }
+};
+
+const closeAuthModal = () => {
+    const overlay = document.getElementById('auth-overlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+};
+
+window.showLandingView = showLandingView;
+window.openAuthModal = openAuthModal;
+window.closeAuthModal = closeAuthModal;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeAuthModal();
+    }
+});
+
 // 1. DYNAMIC NAVIGATION VIEW ROUTER
 const switchView = (viewId) => {
     // Hide all views
@@ -51,6 +90,9 @@ const checkSession = async () => {
         if (data.authenticated) {
             currentUser = data;
             
+            const landing = document.getElementById('public-landing');
+            if (landing) landing.style.display = 'none';
+
             // Set User info in badge
             document.getElementById('user-display-name').textContent = currentUser.fullName;
             document.getElementById('user-display-role').textContent = currentUser.role.replace('ROLE_', '');
@@ -73,10 +115,9 @@ const checkSession = async () => {
                 loadClientDashboard();
             }
         } else {
-            // Force show Login Card
+            // Unauthenticated state: show public landing
             currentUser = null;
-            document.getElementById('auth-overlay').style.display = 'flex';
-            document.getElementById('app-container').style.display = 'none';
+            showLandingView();
             
             // Clean up intervals if any
             if (liveSimInterval) {
@@ -87,6 +128,8 @@ const checkSession = async () => {
         }
     } catch (err) {
         console.error('Session check error:', err);
+        currentUser = null;
+        showLandingView();
     }
 };
 
@@ -134,11 +177,17 @@ const handleLogout = async (event) => {
     if (event) event.preventDefault();
     try {
         const response = await fetch('/logout', { method: 'POST' });
-        if (response.ok) {
-            checkSession();
+        currentUser = null;
+        if (liveSimInterval) {
+            clearInterval(liveSimInterval);
+            liveSimInterval = null;
+            resetLiveSimButton();
         }
+        showLandingView();
     } catch (err) {
         console.error('Logout error:', err);
+        currentUser = null;
+        showLandingView();
     }
 };
 

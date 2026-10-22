@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aarthik Uday - Financial advisory portfolio management and live valuation platform. Support for IIFL stocks, NJ Wealth mutual funds, SWP, and insurance.">
     <title>Aarthik Uday | Financial Portfolio Platform</title>
-    <!-- ChaiUI Typography -->
+    <!-- ChaiUI Typography: Geist Mono, Manrope, Montserrat, Onest -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400..600&family=Manrope:wght@200..800&family=Montserrat:wght@400..800&family=Onest:wght@400..700&display=swap" rel="stylesheet">
@@ -20,9 +20,788 @@
     <!-- ChaiUI Signature Ambient Top Glow -->
     <div class="chai-backdrop" aria-hidden="true"></div>
 
+    <!-- ================================================================= -->
+    <!-- PUBLIC ADVISORY MARKETING WEBSITE (aarthikuday.in)                 -->
+    <!-- ================================================================= -->
+    <div id="public-landing" class="public-landing">
+
+        <!-- 1. STICKY GLASSMORHIC HEADER -->
+        <header class="landing-header">
+            <div class="landing-header-inner">
+                <a href="#hero" class="brand-link" aria-label="Aarthik Uday home">
+                    <div class="brand-logo">
+                        <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;" aria-hidden="true">
+                            <circle cx="50" cy="50" r="48" fill="#FF9505" />
+                            <g fill="#0A0E2B">
+                                <rect x="18" y="45" width="8" height="35" rx="1.5" />
+                                <rect x="30" y="37" width="8" height="43" rx="1.5" />
+                                <rect x="42" y="30" width="8" height="50" rx="1.5" />
+                                <rect x="54" y="22" width="8" height="58" rx="1.5" />
+                                <rect x="66" y="15" width="8" height="65" rx="1.5" />
+                            </g>
+                            <path d="M 12 78 L 34 45 L 46 65 L 82 22" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                            <polygon points="88,15 73,22 84,31" fill="#FFFFFF" />
+                        </svg>
+                    </div>
+                    <span class="brand-name">Aarthik Uday</span>
+                </a>
+
+                <nav class="landing-nav" aria-label="Main navigation">
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#products" class="nav-link">Products</a>
+                    <a href="#founder" class="nav-link">Founder</a>
+                    <a href="#process" class="nav-link">Process</a>
+                    <a href="#testimonials" class="nav-link">Testimonials</a>
+                    <a href="#faq" class="nav-link">FAQs</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+
+                <div class="landing-header-actions">
+                    <button type="button" id="btn-nav-portal" class="btn btn-outline btn-asym-mirror btn-outline-asym" onclick="openAuthModal()">
+                        <ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon>
+                        <span>Client portal</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 2. HERO SECTION & KEY PERFORMANCE METRICS -->
+        <section class="hero-section" id="hero">
+            <div class="hero-inner">
+                <div class="animated-badge">
+                    <span class="animated-badge-glint" aria-hidden="true"></span>
+                    <span class="animated-badge-inner">Independent wealth architecture</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Aarthik Uday financial services.<br>
+                    your wealth, our priority.
+                </h1>
+
+                <p class="hero-lead">We combine deep domain expertise with personalized client relationships to implement <span class="highlight">optimal wealth strategies</span> that build generational assets.</p>
+
+                <!-- Dual CTA: exactly one solid asymmetric white button in view -->
+                <div class="hero-actions">
+                    <button type="button" id="btn-hero-consult" class="btn btn-solid btn-asym" onclick="location.href='#consultation'">
+                        <span>Schedule consultation</span>
+                        <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                    </button>
+                    <button type="button" id="btn-hero-portal" class="btn btn-outline btn-asym-mirror btn-outline-asym" onclick="openAuthModal()">
+                        <span>Open client portal</span>
+                        <ion-icon name="lock-closed-outline" aria-hidden="true"></ion-icon>
+                    </button>
+                </div>
+
+                <!-- 3. PERFORMANCE METRICS COUNTERS -->
+                <div class="metrics-grid">
+                    <div class="metric-card card-chai">
+                        <div class="metric-figure" data-target="2" data-prefix="₹" data-suffix=" Cr+">₹2 Cr+</div>
+                        <div class="metric-label">Advised assets</div>
+                        <p class="metric-sub">Under active management and <span class="highlight">disciplined advisory oversight</span>.</p>
+                    </div>
+                    <div class="metric-card card-chai">
+                        <div class="metric-figure" data-target="200" data-suffix="+">200+</div>
+                        <div class="metric-label">Clients managed</div>
+                        <p class="metric-sub">Guiding retail families and <span class="highlight">committed wealth builders</span>.</p>
+                    </div>
+                    <div class="metric-card card-chai">
+                        <div class="metric-figure" data-target="5" data-suffix="+ Years">5+ Years</div>
+                        <div class="metric-label">Advisory experience</div>
+                        <p class="metric-sub">Navigating dynamic markets and <span class="highlight">evolving regulatory frameworks</span>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. CORE ADVISORY SERVICES -->
+        <section class="landing-section" id="services">
+            <div class="landing-section-inner">
+                <div class="section-head">
+                    <span class="section-eyebrow">Advisory services</span>
+                    <h2 class="section-title">Tailored solutions for every financial horizon</h2>
+                    <p class="section-lead">We provide a comprehensive range of custom advisory services to help you make informed decisions about <span class="highlight">long-term capital distribution</span>.</p>
+                </div>
+
+                <div class="services-grid">
+                    <!-- Service 1: Financial Assessment -->
+                    <div class="service-card card-chai">
+                        <div class="service-step-badge">01 / Foundation</div>
+                        <h3 class="service-title">Financial assessment</h3>
+                        <p class="service-body">A comprehensive audit of your current financial positions is the absolute starting point for all smart wealth growth. We look beyond basic numbers to understand your <span class="highlight">actual capital behaviors</span>.</p>
+                        <ul class="service-checklist">
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Detailed cash flow and expenditure profiling</span>
+                            </li>
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Debt optimization planning to mitigate high-cost liabilities</span>
+                            </li>
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Emergency liquidity pool setup recommendation</span>
+                            </li>
+                        </ul>
+                        <div class="service-action">
+                            <a href="#consultation" onclick="selectConsultationService('Financial assessment')" class="btn btn-soft">
+                                <span>Book assessment session</span>
+                                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service 2: Tax Optimization -->
+                    <div class="service-card card-chai">
+                        <div class="service-step-badge">02 / Efficiency</div>
+                        <h3 class="service-title">Tax optimization and planning</h3>
+                        <p class="service-body">Taxes can erode significant portions of compounding growth if not organized efficiently. Our tax planning integrates Section 80C, 80D, and other modern benefits directly into your <span class="highlight">long-term wealth architecture</span>.</p>
+                        <ul class="service-checklist">
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Reviewing current tax slabs and statutory deductions</span>
+                            </li>
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>ELSS (equity linked savings schemes) and PPF structuring</span>
+                            </li>
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Long-term capital gains (LTCG) harvest planning</span>
+                            </li>
+                        </ul>
+                        <div class="service-action">
+                            <a href="#consultation" onclick="selectConsultationService('Tax optimization (ELSS/PPF)')" class="btn btn-soft">
+                                <span>Optimize taxes</span>
+                                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service 3: Child Education Planning -->
+                    <div class="service-card card-chai">
+                        <div class="service-step-badge">03 / Legacy</div>
+                        <h3 class="service-title">Child education planning</h3>
+                        <p class="service-body">Premium higher education and major child milestones are long-term capital events. Chasing them through short-term savings accounts risks falling short of <span class="highlight">target inflation adjustments</span>.</p>
+                        <ul class="service-checklist">
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Inflation-adjusted calculation for premium domestic and global higher education</span>
+                            </li>
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Systematic SIP schedules to build large corpora gradually</span>
+                            </li>
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Balanced risk allocation to secure target sums on milestone years</span>
+                            </li>
+                        </ul>
+                        <div class="service-action">
+                            <a href="#consultation" onclick="selectConsultationService('Child education planning')" class="btn btn-soft">
+                                <span>Plan child future</span>
+                                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service 4: Retirement Blueprinting -->
+                    <div class="service-card card-chai">
+                        <div class="service-step-badge">04 / Comfort</div>
+                        <h3 class="service-title">Retirement blueprinting</h3>
+                        <p class="service-body">Retirement security requires building a robust capital reserve that generates consistent inflation-proof income throughout your <span class="highlight">post-earning lifestyle</span>.</p>
+                        <ul class="service-checklist">
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Target retirement corpus modeling adjusted for lifestyle inflation</span>
+                            </li>
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Structured systematic withdrawal plan (SWP) blueprints</span>
+                            </li>
+                            <li>
+                                <ion-icon name="checkmark-circle-outline" aria-hidden="true"></ion-icon>
+                                <span>Transition plans from volatile equity to stable bonds</span>
+                            </li>
+                        </ul>
+                        <div class="service-action">
+                            <a href="#consultation" onclick="selectConsultationService('Retirement blueprinting')" class="btn btn-soft">
+                                <span>Plan retirement</span>
+                                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extended Services Row -->
+                <div class="extended-services-card card-chai">
+                    <div class="extended-header">
+                        <h4 class="extended-title">Extended advisory specializations</h4>
+                        <p class="extended-sub">Specialized institutional disciplines available for high-net-worth investors and <span class="highlight">complex family portfolios</span>.</p>
+                    </div>
+                    <div class="extended-chips-grid">
+                        <div class="extended-chip">
+                            <span class="chip-num">05</span>
+                            <div class="chip-content">
+                                <strong>Portfolio review and rebalancing</strong>
+                                <span>Detailed overlap analysis, duplicate holding pruning, and expense ratio optimization.</span>
+                            </div>
+                        </div>
+                        <div class="extended-chip">
+                            <span class="chip-num">06</span>
+                            <div class="chip-content">
+                                <strong>Premium wealth management</strong>
+                                <span>High-touch asset structures for business founders, executives, and generational succession.</span>
+                            </div>
+                        </div>
+                        <div class="extended-chip">
+                            <span class="chip-num">07</span>
+                            <div class="chip-content">
+                                <strong>Goal-based investment planning</strong>
+                                <span>Targeted cash flow scheduling for major ventures, commercial real estate, and liquidity events.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. INVESTMENT PRODUCTS & INSTITUTIONAL PARTNERS -->
+        <section class="landing-section" id="products">
+            <div class="landing-section-inner">
+                <div class="section-head">
+                    <span class="section-eyebrow">Investment assets</span>
+                    <h2 class="section-title">Core financial products and partnerships</h2>
+                    <p class="section-lead">We collaborate with India's leading financial institutions to deliver secure, transparent, and <span class="highlight">regulated investment opportunities</span>.</p>
+                </div>
+
+                <!-- Institutional Partners Bar -->
+                <div class="partners-bar card-chai">
+                    <div class="partner-card">
+                        <div class="partner-meta">
+                            <span class="partner-tag">Distribution partner</span>
+                            <h4 class="partner-name">NJ India Invest / NJ e-Wealth</h4>
+                        </div>
+                        <p class="partner-desc">India's premier technology-driven wealth distribution platform powering seamless mutual fund execution, paperless onboarding, SIP mandates, and <span class="highlight">multi-asset investor consolidation</span>.</p>
+                    </div>
+                    <div class="partner-card">
+                        <div class="partner-meta">
+                            <span class="partner-tag">Exchange broker partner</span>
+                            <h4 class="partner-name">IIFL Securities Limited (Member NSE/BSE)</h4>
+                        </div>
+                        <p class="partner-desc">Premier national financial institution providing institutional equity research, Demat services, secondary market execution, and <span class="highlight">authorized market execution</span>.</p>
+                    </div>
+                </div>
+
+                <div class="products-grid">
+                    <!-- Product 1: Mutual Funds -->
+                    <div class="product-card card-chai">
+                        <div class="product-badge">Managed funds</div>
+                        <div class="product-partner-label">Powered by NJ Wealth</div>
+                        <h3 class="product-title">Structured mutual funds</h3>
+                        <p class="product-desc">Professionally managed collections of equity, hybrid, and debt assets designed for disciplined compounding and <span class="highlight">tax-efficient capital growth</span>.</p>
+                        <div class="product-specs">
+                            <div class="spec-row">
+                                <span class="spec-key">Horizon:</span>
+                                <span class="spec-val">3 to 10+ years</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Modes:</span>
+                                <span class="spec-val">Systematic SIP or lumpsum</span>
+                            </div>
+                        </div>
+                        <div class="product-action">
+                            <a href="#consultation" onclick="selectConsultationService('Structured mutual funds')" class="btn btn-soft">
+                                <span>Explore mutual funds</span>
+                                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Equity Stock Portfolios -->
+                    <div class="product-card card-chai">
+                        <div class="product-badge">Direct equities</div>
+                        <div class="product-partner-label">Authorized Person IIFL Securities</div>
+                        <h3 class="product-title">Equity stock portfolios</h3>
+                        <p class="product-desc">Build direct equity wealth by investing in India's leading companies backed by institutional research and <span class="highlight">authorized market execution</span>.</p>
+                        <div class="product-specs">
+                            <div class="spec-row">
+                                <span class="spec-key">Horizon:</span>
+                                <span class="spec-val">5+ years</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Custody:</span>
+                                <span class="spec-val">Direct depository demat</span>
+                            </div>
+                        </div>
+                        <div class="product-action">
+                            <a href="#consultation" onclick="selectConsultationService('Equity stock portfolios')" class="btn btn-soft">
+                                <span>Explore equity portfolios</span>
+                                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Fixed-Income Bonds -->
+                    <div class="product-card card-chai">
+                        <div class="product-badge">Fixed income</div>
+                        <div class="product-partner-label">Sovereign & corporate issuers</div>
+                        <h3 class="product-title">Fixed-income bonds</h3>
+                        <p class="product-desc">Capital-preservation vehicles including sovereign gold bonds and AAA-rated corporate debt generating <span class="highlight">predictable regular coupon yields</span>.</p>
+                        <div class="product-specs">
+                            <div class="spec-row">
+                                <span class="spec-key">Horizon:</span>
+                                <span class="spec-val">1 to 7 years</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Risk rating:</span>
+                                <span class="spec-val">Low to conservative</span>
+                            </div>
+                        </div>
+                        <div class="product-action">
+                            <a href="#consultation" onclick="selectConsultationService('Fixed-income bonds')" class="btn btn-soft">
+                                <span>Explore bonds</span>
+                                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Protection & Liquidity -->
+                    <div class="product-card card-chai">
+                        <div class="product-badge">Capital protection</div>
+                        <div class="product-partner-label">Leading insurers & banks</div>
+                        <h3 class="product-title">Protection and emergency liquidity</h3>
+                        <p class="product-desc">High-coverage term insurance plans safeguarding family liabilities paired with high-stability fixed deposits for <span class="highlight">guaranteed reserve liquidity</span>.</p>
+                        <div class="product-specs">
+                            <div class="spec-row">
+                                <span class="spec-key">Horizon:</span>
+                                <span class="spec-val">Immediate to 30 years</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Objective:</span>
+                                <span class="spec-val">Liability protection</span>
+                            </div>
+                        </div>
+                        <div class="product-action">
+                            <a href="#consultation" onclick="selectConsultationService('Life insurance and liquidity')" class="btn btn-soft">
+                                <span>Explore protection</span>
+                                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. FOUNDER PROFILE & PHILOSOPHY -->
+        <section class="landing-section" id="founder">
+            <div class="landing-section-inner">
+                <div class="section-head">
+                    <span class="section-eyebrow">Meet our founder</span>
+                    <h2 class="section-title">Founder profile and advisory philosophy</h2>
+                </div>
+
+                <div class="founder-card card-chai">
+                    <div class="founder-layout">
+                        <div class="founder-identity">
+                            <div class="founder-avatar-box">
+                                <div class="founder-avatar-initials">VM</div>
+                            </div>
+                            <h3 class="founder-name">Vishnu Menariya</h3>
+                            <div class="founder-role">Founder & Chief Wealth Architect</div>
+                            <div class="founder-credential">Authorized Person of IIFL Securities Ltd</div>
+
+                            <div class="founder-badges-row">
+                                <span class="badge badge-amber">NISM certified</span>
+                                <span class="badge badge-blue">IIFL Securities AP</span>
+                                <span class="badge badge-emerald">5+ years practice</span>
+                            </div>
+                        </div>
+
+                        <div class="founder-narrative">
+                            <blockquote class="founder-quote">
+                                "True wealth management is not about chasing volatile short-term trends; it is about building a secure, structured framework that ensures peace of mind and compound growth for you and your family."
+                            </blockquote>
+
+                            <p class="founder-bio-p">With over 5 years of professional advisory experience, Vishnu Menariya has guided more than 200 retail and high-net-worth clients in organizing their financial portfolios. Under his leadership, Aarthik Uday manages assets worth over ₹2 Crore, prioritizing risk mitigation, diversification, and <span class="highlight">transparent client alignment</span>.</p>
+
+                            <p class="founder-bio-p">Vishnu believes that a successful investment advisor must be an active listener first. He works with families to uncover their underlying goals and remains personally involved in reviewing every advisory report and <span class="highlight">periodic rebalancing recommendation</span>.</p>
+                        </div>
+                    </div>
+
+                    <!-- 4 Operating Principles -->
+                    <div class="principles-header">
+                        <h4 class="principles-title">Core advisory principles</h4>
+                    </div>
+                    <div class="principles-grid">
+                        <div class="principle-item card-chai">
+                            <div class="principle-num">01</div>
+                            <h5 class="principle-heading">Absolute integrity</h5>
+                            <p class="principle-copy">Full disclosure of all market risk parameters, expense ratios, and fee structures upfront with <span class="highlight">zero hidden charges</span>.</p>
+                        </div>
+                        <div class="principle-item card-chai">
+                            <div class="principle-num">02</div>
+                            <h5 class="principle-heading">True transparency</h5>
+                            <p class="principle-copy">Clear portfolio accounting and regular biannual reporting so clients always know <span class="highlight">exact asset positions</span>.</p>
+                        </div>
+                        <div class="principle-item card-chai">
+                            <div class="principle-num">03</div>
+                            <h5 class="principle-heading">Structural security</h5>
+                            <p class="principle-copy">Portfolios are structured solely with top-tier AMCs, clearing corporations, and regulated depository participants to <span class="highlight">eliminate custody risk</span>.</p>
+                        </div>
+                        <div class="principle-item card-chai">
+                            <div class="principle-num">04</div>
+                            <h5 class="principle-heading">Direct alignment</h5>
+                            <p class="principle-copy">Client targets dictate strategy with zero outsourced automated call centers and <span class="highlight">direct advisor access</span>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. FOUR-STEP PROCESS -->
+        <section class="landing-section" id="process">
+            <div class="landing-section-inner">
+                <div class="section-head">
+                    <span class="section-eyebrow">Our method</span>
+                    <h2 class="section-title">The journey to financial security</h2>
+                    <p class="section-lead">We utilize a disciplined, step-by-step process to transition clients from financial ambiguity to <span class="highlight">compounding long-term growth</span>.</p>
+                </div>
+
+                <div class="process-grid">
+                    <div class="process-card card-chai">
+                        <div class="process-step-num">01</div>
+                        <h3 class="process-step-title">Discovery and assessment</h3>
+                        <p class="process-step-desc">We review your ongoing income streams, recurring debt loads, existing insurance limits, and target horizons during a dedicated <span class="highlight">exploratory diagnostic session</span>.</p>
+                        <div class="process-deliverable">
+                            <span class="deliverable-label">Deliverable:</span>
+                            <span class="deliverable-text">Comprehensive financial profile and net worth benchmark</span>
+                        </div>
+                    </div>
+
+                    <div class="process-card card-chai">
+                        <div class="process-step-num">02</div>
+                        <h3 class="process-step-title">Strategic architecture</h3>
+                        <p class="process-step-desc">Vishnu Menariya designs a customized asset distribution framework using mutual funds, bonds, and equities matched with <span class="highlight">integrated tax mitigation strategies</span>.</p>
+                        <div class="process-deliverable">
+                            <span class="deliverable-label">Deliverable:</span>
+                            <span class="deliverable-text">Personalized asset allocation blueprint with risk-adjusted milestones</span>
+                        </div>
+                    </div>
+
+                    <div class="process-card card-chai">
+                        <div class="process-step-num">03</div>
+                        <h3 class="process-step-title">Disciplined execution</h3>
+                        <p class="process-step-desc">We streamline allocations through regulated partner platforms (NJ Wealth and IIFL Securities), ensuring smooth onboarding and <span class="highlight">correct custodial asset titling</span>.</p>
+                        <div class="process-deliverable">
+                            <span class="deliverable-label">Deliverable:</span>
+                            <span class="deliverable-text">Paperless account setup, direct investor folios, and active SIP mandates</span>
+                        </div>
+                    </div>
+
+                    <div class="process-card card-chai">
+                        <div class="process-step-num">04</div>
+                        <h3 class="process-step-title">Periodic rebalancing</h3>
+                        <p class="process-step-desc">We monitor and review portfolio performance biannually to protect against market fluctuations and maintain <span class="highlight">target asset allocation ratios</span>.</p>
+                        <div class="process-deliverable">
+                            <span class="deliverable-label">Deliverable:</span>
+                            <span class="deliverable-text">Twice-yearly audit report with corrective rebalancing actions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. SOCIAL PROOF & TESTIMONIALS -->
+        <section class="landing-section" id="testimonials">
+            <div class="landing-section-inner">
+                <div class="section-head">
+                    <span class="section-eyebrow">Client success stories</span>
+                    <h2 class="section-title">Trusted by 200+ smart investors</h2>
+                    <p class="section-lead">Read how our customized financial blueprints have helped families and business owners achieve <span class="highlight">verifiable financial peace of mind</span>.</p>
+                </div>
+
+                <div class="testimonials-grid">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card card-chai">
+                        <div class="testimonial-profile">
+                            <div class="testimonial-avatar">RK</div>
+                            <div class="testimonial-info">
+                                <h4 class="testimonial-name">Rajesh Kumar</h4>
+                                <span class="testimonial-role">Software Architect, Udaipur</span>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"Vishnu Menariya's child education plan completely structured my savings. I now have dedicated mutual fund buckets running automatically to secure <span class="highlight">long-term milestone targets</span>."</p>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card card-chai">
+                        <div class="testimonial-profile">
+                            <div class="testimonial-avatar">PM</div>
+                            <div class="testimonial-info">
+                                <h4 class="testimonial-name">Pooja Mehta</h4>
+                                <span class="testimonial-role">Business Owner, Ahmedabad</span>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"Before Aarthik Uday, my investments were scattered. Their portfolio review helped me cut high-fee funds, resulting in better tax savings and <span class="highlight">higher compounding returns</span>."</p>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card card-chai">
+                        <div class="testimonial-profile">
+                            <div class="testimonial-avatar">AS</div>
+                            <div class="testimonial-info">
+                                <h4 class="testimonial-name">Amit Sharma</h4>
+                                <span class="testimonial-role">Retired Bank Manager, Jaipur</span>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">"The retirement projection done by Vishnu was eye-opening. The combination of bonds and low-cost mutual funds gives me high confidence in my <span class="highlight">post-retirement comfort</span>."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. ADVISORY FAQ ACCORDION -->
+        <section class="landing-section" id="faq">
+            <div class="landing-section-inner">
+                <div class="section-head">
+                    <span class="section-eyebrow">Advisory clarifications</span>
+                    <h2 class="section-title">Frequently asked questions</h2>
+                    <p class="section-lead">Clear answers to help you understand our fiduciary standards, capital safety, and <span class="highlight">disciplined portfolio management</span>.</p>
+                </div>
+
+                <div class="faq-accordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item card-chai active">
+                        <button type="button" class="faq-trigger" onclick="toggleFaq(this)">
+                            <span class="faq-question">What is the minimum investment required to start?</span>
+                            <ion-icon name="chevron-down-outline" class="faq-icon" aria-hidden="true"></ion-icon>
+                        </button>
+                        <div class="faq-body">
+                            <p class="faq-answer">We design strategies for various capital tiers. For systematic investment plans (SIP), you can start with as low as ₹500 or ₹1,000 per month. For customized wealth architecture with multi-asset diversification, we recommend a <span class="highlight">baseline portfolio size of ₹2 Lakh</span>.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item card-chai">
+                        <button type="button" class="faq-trigger" onclick="toggleFaq(this)">
+                            <span class="faq-question">Are my funds safe with Aarthik Uday?</span>
+                            <ion-icon name="chevron-down-outline" class="faq-icon" aria-hidden="true"></ion-icon>
+                        </button>
+                        <div class="faq-body">
+                            <p class="faq-answer">Absolutely. Aarthik Uday never holds or custodies client funds. Your payments are transferred directly to SEBI-regulated AMCs, exchange clearing corporations, or custodian banks. Aarthik Uday acts solely as an authorized advisor. Even if we cease operations, your investments remain safe in your personal demat account or <span class="highlight">direct fund house folios</span>.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item card-chai">
+                        <button type="button" class="faq-trigger" onclick="toggleFaq(this)">
+                            <span class="faq-question">How does Vishnu Menariya select mutual funds?</span>
+                            <ion-icon name="chevron-down-outline" class="faq-icon" aria-hidden="true"></ion-icon>
+                        </button>
+                        <div class="faq-body">
+                            <p class="faq-answer">We analyze funds using quantitative indicators (Alpha, Beta, Sharpe ratio, Sortino ratio, expense ratio) and qualitative criteria (fund manager tenure, AMC pedigree, portfolio concentration). We avoid recommending top-performing funds blindly; we choose instruments that align with your <span class="highlight">specific risk profile</span>.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item card-chai">
+                        <button type="button" class="faq-trigger" onclick="toggleFaq(this)">
+                            <span class="faq-question">How often is the investment portfolio reviewed?</span>
+                            <ion-icon name="chevron-down-outline" class="faq-icon" aria-hidden="true"></ion-icon>
+                        </button>
+                        <div class="faq-body">
+                            <p class="faq-answer">We run formal portfolio reviews biannually. If significant regulatory revisions occur (such as changes in tax brackets or mutual fund regulations), we contact you immediately to discuss adjustments and <span class="highlight">timely rebalancing actions</span>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. DIAGNOSTIC CONSULTATION FORM -->
+        <section class="landing-section" id="consultation">
+            <div class="landing-section-inner">
+                <div class="section-head">
+                    <span class="section-eyebrow">Private advisory inquiry</span>
+                    <h2 class="section-title">Schedule your diagnostic consultation</h2>
+                    <p class="section-lead">Begin your journey toward structured financial freedom by scheduling a one-on-one session with our <span class="highlight">chief wealth architect</span>.</p>
+                </div>
+
+                <div class="consultation-container">
+                    <div class="consultation-card card-chai">
+                        <form id="consultation-form" onsubmit="handleConsultationSubmit(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="consultation-name">Full name</label>
+                                    <input type="text" id="consultation-name" name="name" class="form-control" placeholder="Enter your full name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="consultation-phone">Phone number (10 digits)</label>
+                                    <input type="tel" id="consultation-phone" name="phone" class="form-control" placeholder="9876543210" pattern="[6-9][0-9]{9}" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="consultation-email">Email address</label>
+                                    <input type="email" id="consultation-email" class="form-control" placeholder="you@example.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="consultation-service">Advisory specialization</label>
+                                    <select id="consultation-service" class="form-control">
+                                        <option value="Financial assessment">Financial assessment</option>
+                                        <option value="Tax optimization (ELSS/PPF)">Tax optimization (ELSS/PPF)</option>
+                                        <option value="Child education planning">Child education planning</option>
+                                        <option value="Retirement blueprinting">Retirement blueprinting</option>
+                                        <option value="Portfolio review and rebalancing">Portfolio review and rebalancing</option>
+                                        <option value="Structured mutual funds">Structured mutual funds</option>
+                                        <option value="Equity stock portfolios">Equity stock portfolios</option>
+                                        <option value="Fixed-income bonds">Fixed-income bonds</option>
+                                        <option value="Comprehensive wealth management">Comprehensive wealth management</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="consultation-notes">Financial goals or questions</label>
+                                <textarea id="consultation-notes" class="form-control" rows="3" placeholder="Briefly describe your investment horizons, current portfolio state, or key questions"></textarea>
+                            </div>
+
+                            <!-- Soft button to preserve single solid button in view -->
+                            <button type="submit" id="btn-consultation-submit" class="btn btn-soft form-submit-btn">
+                                <span>Send consultation request</span>
+                                <ion-icon name="paper-plane-outline" aria-hidden="true"></ion-icon>
+                            </button>
+
+                            <div id="consultation-feedback" class="consultation-feedback" style="display: none;"></div>
+                        </form>
+                    </div>
+
+                    <!-- Quick Direct Channel Box -->
+                    <div class="whatsapp-direct-box card-chai">
+                        <div class="direct-icon-box">
+                            <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
+                        </div>
+                        <div class="direct-content">
+                            <h4 class="direct-title">Direct advisory desk</h4>
+                            <p class="direct-desc">Prefer an immediate conversation? Connect directly with Vishnu Menariya on WhatsApp for <span class="highlight">prompt scheduling assistance</span>.</p>
+                            <a href="https://wa.me/919694702442?text=Hi%20Vishnu,%20I%20would%20like%20to%20book%20a%20free%20financial%20consultation." target="_blank" rel="noopener noreferrer" class="btn btn-soft direct-wa-btn">
+                                <ion-icon name="logo-whatsapp" aria-hidden="true"></ion-icon>
+                                <span>Chat on WhatsApp (+91 96947 02442)</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. STATUTORY COMPLIANCE CARD -->
+        <section class="landing-section compliance-section" id="compliance">
+            <div class="landing-section-inner">
+                <div class="statutory-disclaimer-card card-chai">
+                    <div class="disclaimer-header">
+                        <ion-icon name="shield-checkmark-outline" class="disclaimer-icon" aria-hidden="true"></ion-icon>
+                        <h4 class="disclaimer-heading">Regulatory compliance and statutory disclosure</h4>
+                    </div>
+                    <p class="disclaimer-text">Investments in securities market are subject to market risks. Read all the related documents carefully before investing. Registration granted by SEBI and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of <span class="highlight">verifiable investment returns</span>.</p>
+                    <p class="disclaimer-text">Aarthik Uday is a commercial trade name. Stock broking and derivatives trading services are offered through Vishnu Menariya who is registered as an Authorized Person (AP) of IIFL Securities Limited (Member of NSE/BSE) to ensure <span class="highlight">complete regulatory compliance</span>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. UDAIPUR OFFICE CONTACT & FOOTER -->
+        <footer class="landing-footer" id="contact">
+            <div class="landing-footer-inner">
+                <div class="footer-grid">
+                    <!-- Column 1: Brand Info -->
+                    <div class="footer-col brand-col">
+                        <a href="#hero" class="brand-link" aria-label="Aarthik Uday home">
+                            <div class="brand-logo">
+                                <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;" aria-hidden="true">
+                                    <circle cx="50" cy="50" r="48" fill="#FF9505" />
+                                    <g fill="#0A0E2B">
+                                        <rect x="18" y="45" width="8" height="35" rx="1.5" />
+                                        <rect x="30" y="37" width="8" height="43" rx="1.5" />
+                                        <rect x="42" y="30" width="8" height="50" rx="1.5" />
+                                        <rect x="54" y="22" width="8" height="58" rx="1.5" />
+                                        <rect x="66" y="15" width="8" height="65" rx="1.5" />
+                                    </g>
+                                    <path d="M 12 78 L 34 45 L 46 65 L 82 22" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <polygon points="88,15 73,22 84,31" fill="#FFFFFF" />
+                                </svg>
+                            </div>
+                            <span class="brand-name">Aarthik Uday</span>
+                        </a>
+                        <p class="footer-desc">Founded by Vishnu Menariya, Aarthik Uday is a premium advisory helping clients manage risk, save taxes, and compile <span class="highlight">secure long-term portfolios</span>.</p>
+                    </div>
+
+                    <!-- Column 2: Navigation -->
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">Navigation</h4>
+                        <ul class="footer-links">
+                            <li><a href="#hero" class="footer-link">Home</a></li>
+                            <li><a href="#services" class="footer-link">Services</a></li>
+                            <li><a href="#products" class="footer-link">Products</a></li>
+                            <li><a href="#founder" class="footer-link">Founder</a></li>
+                            <li><a href="#process" class="footer-link">Process</a></li>
+                            <li><a href="#faq" class="footer-link">FAQs</a></li>
+                            <li><a href="#consultation" class="footer-link">Consultation</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 3: Advisory Services -->
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">Services</h4>
+                        <ul class="footer-links">
+                            <li><a href="#services" class="footer-link">Financial assessment</a></li>
+                            <li><a href="#services" class="footer-link">Tax optimization</a></li>
+                            <li><a href="#services" class="footer-link">Child future planning</a></li>
+                            <li><a href="#services" class="footer-link">Retirement blueprinting</a></li>
+                            <li><a href="#services" class="footer-link">Portfolio review</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Column 4: Udaipur Office & Contact -->
+                    <div class="footer-col office-col">
+                        <h4 class="footer-col-title">Udaipur office</h4>
+                        <div class="footer-contact-item">
+                            <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+                            <span>Shop no 104, Shankeshwar Enclave, near chaudhary hospital, Sector 5, Hiran Mangri, Udaipur, Rajasthan 313002</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+                            <a href="tel:+919694702442" class="footer-link">+91 96947 02442</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+                            <span>Mon to Sat, 9:00 AM to 7:00 PM IST</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                            <a href="mailto:invest@aarthikuday.com" class="footer-link">invest@aarthikuday.com</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="footer-copy">© 2026 Aarthik Uday. All rights reserved. Founded by Vishnu Menariya.</div>
+                    <div class="footer-legal">
+                        <a href="#compliance" class="footer-link">Privacy policy</a>
+                        <span class="footer-dot">•</span>
+                        <a href="#compliance" class="footer-link">Terms and conditions</a>
+                        <span class="footer-dot">•</span>
+                        <a href="#compliance" class="footer-link">SEBI AP disclosure</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- END PUBLIC ADVISORY MARKETING WEBSITE -->
+
     <!-- 1. AUTHENTICATION OVERLAY PORTAL -->
-    <div id="auth-overlay" class="auth-overlay">
+    <div id="auth-overlay" class="auth-overlay" style="display: none;">
         <div class="auth-card card-chai">
+            <button type="button" id="btn-close-auth" class="modal-close" onclick="closeAuthModal()" aria-label="Close authentication modal">&times;</button>
             <div class="auth-header">
                 <div class="animated-badge" style="margin-bottom: 1.25rem;">
                     <span class="animated-badge-glint" aria-hidden="true"></span>
@@ -148,6 +927,14 @@
                             <span>Add client</span>
                         </button>
                     </div>
+                </div>
+
+                <!-- Live Valuation Ticker -->
+                <div id="live-ticker" class="live-ticker card-chai" aria-label="Market indices live valuation">
+                    <div class="ticker-item"><span class="ticker-symbol">NIFTY 50</span> <span class="ticker-price ticker-up">₹24850.00 (+0.45%)</span></div>
+                    <div class="ticker-item"><span class="ticker-symbol">SENSEX</span> <span class="ticker-price ticker-up">₹81200.00 (+0.38%)</span></div>
+                    <div class="ticker-item"><span class="ticker-symbol">IIFL SEC</span> <span class="ticker-price ticker-up">₹452.10 (+0.55%)</span></div>
+                    <div class="ticker-item"><span class="ticker-symbol">NJ WEALTH</span> <span class="ticker-price ticker-down">₹128.40 (-0.15%)</span></div>
                 </div>
 
                 <!-- Aggregated stats -->
@@ -657,6 +1444,120 @@
             <div id="import-sheet-message" style="display: none; padding: 0.6rem 0.85rem; border-radius: 4px; margin-top: 0.75rem; font-size: 0.8rem; font-family: var(--font-sans);"></div>
         </div>
     </div>
+
+    <!-- PUBLIC MARKETING INTERACTIONS JS -->
+    <script>
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            if (!item) return;
+            const accordion = item.closest('.faq-accordion');
+            const wasActive = item.classList.contains('active');
+            
+            if (accordion) {
+                accordion.querySelectorAll('.faq-item').forEach(function(el) {
+                    el.classList.remove('active');
+                });
+            }
+            
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        function selectConsultationService(serviceName) {
+            const select = document.getElementById('consultation-service');
+            if (select) {
+                select.value = serviceName;
+            }
+        }
+
+        function handleConsultationSubmit(e) {
+            e.preventDefault();
+            const nameEl = document.getElementById('consultation-name');
+            const phoneEl = document.getElementById('consultation-phone');
+            const serviceEl = document.getElementById('consultation-service');
+            const feedbackEl = document.getElementById('consultation-feedback');
+
+            const name = nameEl ? nameEl.value.trim() : '';
+            const phone = phoneEl ? phoneEl.value.trim() : '';
+            const service = serviceEl ? serviceEl.value : 'Advisory consultation';
+
+            const phoneRegex = /^[6-9]\d{9}$/;
+            if (!phoneRegex.test(phone)) {
+                if (feedbackEl) {
+                    feedbackEl.style.display = 'block';
+                    feedbackEl.style.color = '#ef4444';
+                    feedbackEl.textContent = 'Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9.';
+                }
+                return false;
+            }
+
+            if (feedbackEl) {
+                feedbackEl.style.display = 'block';
+                feedbackEl.style.color = '#10b981';
+                feedbackEl.textContent = 'Thank you, ' + name + '! Your consultation request for ' + service + ' has been registered. Vishnu Menariya will contact you within 24 business hours.';
+            }
+
+            setTimeout(function() {
+                const form = document.getElementById('consultation-form');
+                if (form) form.reset();
+            }, 4000);
+            return false;
+        }
+
+        function openAuthModal() {
+            const overlay = document.getElementById('auth-overlay');
+            if (overlay) {
+                overlay.style.display = 'flex';
+                const userField = document.getElementById('login-username');
+                if (userField) userField.focus();
+            }
+        }
+
+        function closeAuthModal() {
+            const overlay = document.getElementById('auth-overlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAuthModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const counters = document.querySelectorAll('.metric-figure');
+            if (!('IntersectionObserver' in window)) return;
+            
+            const observer = new IntersectionObserver(function(entries, obs) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const targetEl = entry.target;
+                        const targetVal = parseInt(targetEl.getAttribute('data-target') || '0', 10);
+                        const prefix = targetEl.getAttribute('data-prefix') || '';
+                        const suffix = targetEl.getAttribute('data-suffix') || '';
+                        let current = 0;
+                        const stepTime = Math.max(25, Math.floor(1000 / (targetVal || 1)));
+                        const timer = setInterval(function() {
+                            current += Math.ceil(targetVal / 25);
+                            if (current >= targetVal) {
+                                current = targetVal;
+                                clearInterval(timer);
+                            }
+                            targetEl.textContent = prefix + current + suffix;
+                        }, stepTime);
+                        obs.unobserve(targetEl);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            counters.forEach(function(c) {
+                observer.observe(c);
+            });
+        });
+    </script>
 
     <!-- 6. APPLICATION LOGIC JS -->
     <script src="app.js"></script>
