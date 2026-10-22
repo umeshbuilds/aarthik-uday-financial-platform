@@ -60,6 +60,10 @@ public class SecurityConfig {
                     "/index.html",
                     "/style.css",
                     "/app.js",
+                    "/images/**",
+                    "/portal",
+                    "/dashboard",
+                    "/admin",
                     "/h2-console/**",
                     "/api/auth/session"
                 ).permitAll()
@@ -69,28 +73,55 @@ public class SecurityConfig {
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
             )
-            // Configure custom form-based JSON login
+            // Configure custom form-based login supporting AJAX and standard browser redirect
             .formLogin(form -> form
                 .loginProcessingUrl("/login")
                 .successHandler((request, response, authentication) -> {
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    response.setContentType("application/json");
-                    response.getWriter().write("{\"success\":true, \"username\":\"" + authentication.getName() + "\"}");
+                    String requestedWith = request.getHeader("X-Requested-With");
+                    String accept = request.getHeader("Accept");
+                    boolean isAjax = "XMLHttpRequest".equalsIgnoreCase(requestedWith)
+                            || (accept != null && accept.contains("application/json") && !accept.contains("text/html"));
+
+                    if (isAjax) {
+                        response.setStatus(HttpServletResponse.SC_OK);
+                        response.setContentType("application/json");
+                        response.getWriter().write("{\"success\":true, \"username\":\"" + authentication.getName() + "\"}");
+                    } else {
+                        response.sendRedirect("/#portal");
+                    }
                 })
                 .failureHandler((request, response, exception) -> {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    response.setContentType("application/json");
-                    response.getWriter().write("{\"success\":false, \"message\":\"" + exception.getMessage() + "\"}");
+                    String requestedWith = request.getHeader("X-Requested-With");
+                    String accept = request.getHeader("Accept");
+                    boolean isAjax = "XMLHttpRequest".equalsIgnoreCase(requestedWith)
+                            || (accept != null && accept.contains("application/json") && !accept.contains("text/html"));
+
+                    if (isAjax) {
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        response.setContentType("application/json");
+                        response.getWriter().write("{\"success\":false, \"message\":\"" + exception.getMessage() + "\"}");
+                    } else {
+                        response.sendRedirect("/?error=true#login");
+                    }
                 })
                 .permitAll()
             )
-            // Configure custom JSON logout
+            // Configure custom logout
             .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessHandler((request, response, authentication) -> {
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    response.setContentType("application/json");
-                    response.getWriter().write("{\"success\":true}");
+                    String requestedWith = request.getHeader("X-Requested-With");
+                    String accept = request.getHeader("Accept");
+                    boolean isAjax = "XMLHttpRequest".equalsIgnoreCase(requestedWith)
+                            || (accept != null && accept.contains("application/json") && !accept.contains("text/html"));
+
+                    if (isAjax) {
+                        response.setStatus(HttpServletResponse.SC_OK);
+                        response.setContentType("application/json");
+                        response.getWriter().write("{\"success\":true}");
+                    } else {
+                        response.sendRedirect("/");
+                    }
                 })
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")

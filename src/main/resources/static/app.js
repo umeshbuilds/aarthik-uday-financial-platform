@@ -38,6 +38,11 @@ const openAuthModal = () => {
         const appContainer = document.getElementById('app-container');
         if (appContainer) appContainer.style.display = 'flex';
         window.scrollTo({ top: 0, behavior: 'instant' });
+        if (currentUser.role === 'ROLE_ADMIN') {
+            switchView('admin-dashboard');
+        } else {
+            switchView('client-dashboard');
+        }
         return;
     }
     const overlay = document.getElementById('auth-overlay');
@@ -97,6 +102,7 @@ const checkSession = async () => {
 
         if (data.authenticated) {
             currentUser = data;
+            window.currentUser = data;
             
             const landing = document.getElementById('public-landing');
             if (landing) landing.style.display = 'none';
@@ -136,8 +142,14 @@ const checkSession = async () => {
         } else {
             // Unauthenticated state: show public landing
             currentUser = null;
+            window.currentUser = null;
             showLandingView();
             
+            // If URL indicates portal view requested, open auth modal
+            if (window.location.hash === '#portal' || window.location.hash === '#login' || window.location.pathname === '/portal') {
+                openAuthModal();
+            }
+
             // Clean up intervals if any
             if (liveSimInterval) {
                 clearInterval(liveSimInterval);
@@ -148,13 +160,17 @@ const checkSession = async () => {
     } catch (err) {
         console.error('Session check error:', err);
         currentUser = null;
+        window.currentUser = null;
         showLandingView();
     }
 };
 
 // 3. LOGIN FORM HANDLER
 const handleLogin = async (event) => {
-    event.preventDefault();
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
     const usernameEl = document.getElementById('login-username');
     const passwordEl = document.getElementById('login-password');
     const errorEl = document.getElementById('auth-error');
@@ -165,6 +181,14 @@ const handleLogin = async (event) => {
         const username = (usernameEl ? usernameEl.value : '').trim();
         const password = passwordEl ? passwordEl.value : '';
 
+        if (!username || !password) {
+            if (errorEl) {
+                errorEl.style.display = 'block';
+                errorEl.textContent = 'Please enter both username and password.';
+            }
+            return false;
+        }
+
         const params = new URLSearchParams();
         params.append('username', username);
         params.append('password', password);
@@ -172,24 +196,35 @@ const handleLogin = async (event) => {
         const response = await fetch('/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
             },
             body: params
         });
 
-        const data = await response.json();
+        let data = null;
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+            data = await response.json();
+        } else {
+            data = { success: response.ok };
+        }
 
-        if (response.ok && data.success) {
+        if (response.ok && (data.success !== false)) {
             if (usernameEl) usernameEl.value = '';
             if (passwordEl) passwordEl.value = '';
             closeAuthModal();
+            window.location.hash = '#portal';
             await checkSession();
             window.scrollTo({ top: 0, behavior: 'instant' });
+            return false;
         } else {
             if (errorEl) {
                 errorEl.style.display = 'block';
-                errorEl.textContent = data.message || 'Invalid username or password.';
+                errorEl.textContent = (data && data.message) ? data.message : 'Invalid username or password.';
             }
+            return false;
         }
     } catch (err) {
         console.error('Login error:', err);
@@ -197,26 +232,36 @@ const handleLogin = async (event) => {
             errorEl.style.display = 'block';
             errorEl.textContent = 'Server connection failed. Try again.';
         }
+        return false;
     }
 };
 
 // 4. LOGOUT HANDLER
 const handleLogout = async (event) => {
-    if (event) event.preventDefault();
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
     try {
-        const response = await fetch('/logout', { method: 'POST' });
+        await fetch('/logout', { method: 'POST' });
         currentUser = null;
+        window.currentUser = null;
         if (liveSimInterval) {
             clearInterval(liveSimInterval);
             liveSimInterval = null;
             resetLiveSimButton();
         }
+        if (window.location.hash === '#portal' || window.location.hash === '#login') {
+            history.pushState(null, '', window.location.pathname);
+        }
         showLandingView();
     } catch (err) {
         console.error('Logout error:', err);
         currentUser = null;
+        window.currentUser = null;
         showLandingView();
     }
+    return false;
 };
 
 // 5. MOCK DATA UPDATES TICKER ENGINE
@@ -340,8 +385,13 @@ const loadAdminDashboard = async () => {
 
 // Render Admin Charts
 const renderAdminCharts = (stats) => {
-    const ctxAllocation = document.getElementById('chart-admin-allocation').getContext('2d');
-    const ctxPartners = document.getElementById('chart-admin-partners').getContext('2d');
+    if (typeof Chart === 'undefined') return;
+    const canvasAlloc = document.getElementById('chart-admin-allocation');
+    const canvasPartners = document.getElementById('chart-admin-partners');
+    if (!canvasAlloc || !canvasPartners) return;
+    const ctxAllocation = canvasAlloc.getContext('2d');
+    const ctxPartners = canvasPartners.getContext('2d');
+    if (!ctxAllocation || !ctxPartners) return;
 
     // Chart 1: Product Allocation (SIP, Stocks, SWP, Insurance)
     if (chartAdminAllocation) {
@@ -595,7 +645,11 @@ const loadClientDashboard = async () => {
 
 // Render Client Allocation Breakdown Chart
 const renderClientChart = (stats) => {
-    const ctx = document.getElementById('chart-client-breakdown').getContext('2d');
+    if (typeof Chart === 'undefined') return;
+    const canvas = document.getElementById('chart-client-breakdown');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     
     if (chartClientBreakdown) {
         chartClientBreakdown.destroy();
@@ -1121,11 +1175,68 @@ const submitGoogleImport = async (event) => {
     }
 };
 
-// 16. INITIALIZE APP ROOT BINDINGS
+// 16. EXPORT GLOBAL HANDLERS TO WINDOW SCOPE
+window.currentUser = currentUser;
+window.formatCurrency = formatCurrency;
+window.showLandingView = showLandingView;
+window.openAuthModal = openAuthModal;
+window.closeAuthModal = closeAuthModal;
+window.switchView = switchView;
+window.checkSession = checkSession;
+window.handleLogin = handleLogin;
+window.handleLogout = handleLogout;
+window.startLiveTickerUpdates = startLiveTickerUpdates;
+window.toggleLiveSim = toggleLiveSim;
+window.resetLiveSimButton = resetLiveSimButton;
+window.loadAdminDashboard = loadAdminDashboard;
+window.renderAdminCharts = renderAdminCharts;
+window.renderClientTable = renderClientTable;
+window.filterClientTable = filterClientTable;
+window.loadClientDashboard = loadClientDashboard;
+window.renderClientChart = renderClientChart;
+window.loadClientDetail = loadClientDetail;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.switchImportForm = switchImportForm;
+window.updateExcelFileName = updateExcelFileName;
+window.submitExcelImport = submitExcelImport;
+window.submitGoogleImport = submitGoogleImport;
+
+// 17. INITIALIZE APP ROOT BINDINGS
 document.addEventListener('DOMContentLoaded', () => {
     // Check dynamic authentication session immediately
     checkSession();
     
     // Start ticker simulation
     startLiveTickerUpdates();
+
+    // Bind form submit listener to ensure handleLogin executes
+    const authForm = document.getElementById('auth-form');
+    if (authForm) {
+        authForm.addEventListener('submit', (e) => {
+            handleLogin(e);
+        });
+    }
+
+    // Handle hash routing transitions
+    window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#portal') {
+            if (currentUser) {
+                const landing = document.getElementById('public-landing');
+                if (landing) landing.style.display = 'none';
+                const appContainer = document.getElementById('app-container');
+                if (appContainer) appContainer.style.display = 'flex';
+                if (currentUser.role === 'ROLE_ADMIN') {
+                    switchView('admin-dashboard');
+                } else {
+                    switchView('client-dashboard');
+                }
+            } else {
+                openAuthModal();
+            }
+        } else if (window.location.hash === '#login') {
+            openAuthModal();
+        }
+    });
 });
+
