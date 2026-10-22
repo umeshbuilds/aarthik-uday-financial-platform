@@ -1230,6 +1230,30 @@ tbody tr:hover {
     margin-bottom: 0.75rem;
 }
 
+.card-image-box {
+    width: 100%;
+    height: 175px;
+    border-radius: calc(var(--radius) - 2px);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    border: 1px solid var(--card-edge);
+    background: rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card:hover .card-img,
+.product-card:hover .card-img {
+    transform: scale(1.03);
+}
+
 .service-title {
     font-family: var(--font-display);
     font-size: 1.25rem;
@@ -1363,6 +1387,28 @@ tbody tr:hover {
     margin-bottom: 0.5rem;
 }
 
+.partner-logo-box {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid var(--card-edge);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    padding: 6px;
+}
+
+.partner-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: calc(var(--radius) - 4px);
+    display: block;
+}
+
 .partner-tag {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -1490,7 +1536,7 @@ tbody tr:hover {
 
 .founder-layout {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 320px 1fr;
     gap: 3rem;
     margin-bottom: 3rem;
     align-items: start;
@@ -1500,6 +1546,29 @@ tbody tr:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.founder-photo-box {
+    width: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--card-edge);
+    background: #000000;
+    margin-bottom: 1.25rem;
+    aspect-ratio: 4/3;
+    position: relative;
+}
+
+.founder-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.founder-card:hover .founder-img {
+    transform: scale(1.02);
 }
 
 .founder-avatar-box {
@@ -2116,6 +2185,11 @@ tbody tr:hover {
 
     .consultation-container {
         grid-template-columns: 1fr;
+    }
+
+    .founder-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
     .footer-grid {
