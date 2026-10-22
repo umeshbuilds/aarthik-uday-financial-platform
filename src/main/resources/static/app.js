@@ -660,7 +660,7 @@ const renderClientTable = (clients) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                <div style="font-weight: 600; color: #fff;">${client.user.fullName}</div>
+                <div style="font-weight: 600; color: var(--foreground);">${client.user.fullName}</div>
                 <div style="font-size: 0.75rem; color: var(--muted-foreground); font-family: var(--font-mono);">@${client.user.username}</div>
             </td>
             <td>
@@ -669,7 +669,7 @@ const renderClientTable = (clients) => {
             </td>
             <td><code class="badge badge-purple">${client.panNumber}</code></td>
             <td style="font-family: var(--font-display);">${formatCurrency(client.totalInvested)}</td>
-            <td style="font-family: var(--font-display); font-weight: 600; color: #ffffff;">${formatCurrency(client.currentValue)}</td>
+            <td style="font-family: var(--font-display); font-weight: 600; color: var(--foreground);">${formatCurrency(client.currentValue)}</td>
             <td>
                 <span class="badge ${yieldPct >= 0 ? 'badge-emerald' : 'badge-red'}">
                     ${yieldPct >= 0 ? '+' : ''}${yieldPct.toFixed(2)}%
@@ -741,14 +741,14 @@ const loadClientDashboard = async () => {
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td style="font-weight: 600; color: #ffffff;">${inv.schemeName}</td>
+                    <td style="font-weight: 600; color: var(--foreground);">${inv.schemeName}</td>
                     <td><span class="badge ${inv.partner === 'IIFL' ? 'badge-emerald' : 'badge-purple'}">${inv.partner.replace('_', ' ')}</span></td>
                     <td><span class="badge badge-blue">${inv.type}</span></td>
                     <td>${inv.units.toFixed(2)}</td>
                     <td>₹${inv.buyPrice.toFixed(2)}</td>
                     <td><span style="font-weight: 600;">₹${inv.currentPrice.toFixed(2)}</span></td>
                     <td>${formatCurrency(inv.investedAmount)}</td>
-                    <td><span style="font-weight: 600; color: #ffffff;">${formatCurrency(inv.currentValue)}</span></td>
+                    <td><span style="font-weight: 600; color: var(--foreground);">${formatCurrency(inv.currentValue)}</span></td>
                     <td style="color: ${invYield >= 0 ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">
                         ${invYield >= 0 ? '+' : ''}${invYield.toFixed(2)}%
                     </td>
@@ -787,7 +787,7 @@ const loadClientDashboard = async () => {
                         <span style="font-weight: 700; color: ${tx.type === 'BUY' ? 'var(--success)' : '#c084fc'}">${tx.type}</span>
                         <span style="color: var(--muted-foreground); font-size: 0.7rem;">(${formattedDate})</span>
                     </div>
-                    <span style="font-weight: 600; color: #ffffff;">${formatCurrency(tx.amount)}</span>
+                    <span style="font-weight: 600; color: var(--foreground);">${formatCurrency(tx.amount)}</span>
                 `;
                 txList.appendChild(li);
             });
@@ -892,14 +892,14 @@ const loadClientDetail = async (clientId) => {
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td style="font-weight: 600; color: #ffffff;">${inv.schemeName}</td>
+                    <td style="font-weight: 600; color: var(--foreground);">${inv.schemeName}</td>
                     <td><span class="badge ${inv.partner === 'IIFL' ? 'badge-emerald' : 'badge-purple'}">${inv.partner.replace('_', ' ')}</span></td>
                     <td><span class="badge badge-blue">${inv.type}</span></td>
                     <td>${inv.units.toFixed(2)}</td>
                     <td>₹${inv.buyPrice.toFixed(2)}</td>
                     <td><span style="font-weight: 600;">₹${inv.currentPrice.toFixed(2)}</span></td>
                     <td>${formatCurrency(inv.investedAmount)}</td>
-                    <td><span style="font-weight: 600; color: #ffffff;">${formatCurrency(inv.currentValue)}</span></td>
+                    <td><span style="font-weight: 600; color: var(--foreground);">${formatCurrency(inv.currentValue)}</span></td>
                     <td style="color: ${invYield >= 0 ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">
                         ${invYield >= 0 ? '+' : ''}${invYield.toFixed(2)}%
                     </td>
@@ -967,7 +967,7 @@ const renderClientsViewTable = (clients) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                <div style="font-weight: 600; color: #ffffff;">${client.user.fullName}</div>
+                <div style="font-weight: 600; color: var(--foreground);">${client.user.fullName}</div>
                 <div style="font-size: 0.75rem; color: var(--muted-foreground); font-family: var(--font-mono);">@${client.user.username}</div>
             </td>
             <td>
@@ -976,7 +976,7 @@ const renderClientsViewTable = (clients) => {
             </td>
             <td><code class="badge badge-purple">${client.panNumber}</code></td>
             <td style="font-family: var(--font-display);">${formatCurrency(client.totalInvested)}</td>
-            <td style="font-family: var(--font-display);"><span style="font-weight: 600; color: #ffffff;">${formatCurrency(client.currentValue)}</span></td>
+            <td style="font-family: var(--font-display);"><span style="font-weight: 600; color: var(--foreground);">${formatCurrency(client.currentValue)}</span></td>
             <td>
                 <span class="badge ${yieldPct >= 0 ? 'badge-emerald' : 'badge-red'}">
                     ${yieldPct >= 0 ? '+' : ''}${yieldPct.toFixed(2)}%
@@ -1122,14 +1122,14 @@ const toggleAdminTab = (tabId) => {
 
     if (tabId === 'clients') {
         btnClients.classList.add('active');
-        btnClients.style.color = '#fff';
+        btnClients.style.color = 'var(--foreground)';
         btnAssets.classList.remove('active');
         btnAssets.style.color = 'var(--muted-foreground)';
         contentClients.style.display = 'block';
         contentAssets.style.display = 'none';
     } else {
         btnAssets.classList.add('active');
-        btnAssets.style.color = '#fff';
+        btnAssets.style.color = 'var(--foreground)';
         btnClients.classList.remove('active');
         btnClients.style.color = 'var(--muted-foreground)';
         contentClients.style.display = 'none';
@@ -1165,17 +1165,17 @@ const renderMasterHoldingsTable = (assets) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                <div style="font-weight: 600; color: #ffffff;">${inv.client.user.fullName}</div>
+                <div style="font-weight: 600; color: var(--foreground);">${inv.client.user.fullName}</div>
                 <div style="font-size: 0.75rem; color: var(--muted-foreground); font-family: var(--font-mono);">PAN: ${inv.client.panNumber}</div>
             </td>
-            <td style="font-weight: 600; color: #ffffff;">${inv.schemeName}</td>
+            <td style="font-weight: 600; color: var(--foreground);">${inv.schemeName}</td>
             <td><span class="badge ${inv.partner === 'IIFL' ? 'badge-emerald' : 'badge-purple'}">${inv.partner.replace('_', ' ')}</span></td>
             <td><span class="badge badge-blue">${inv.type}</span></td>
             <td>${inv.units.toFixed(2)}</td>
             <td>₹${inv.buyPrice.toFixed(2)}</td>
             <td><span style="font-weight: 600;">₹${inv.currentPrice.toFixed(2)}</span></td>
             <td style="font-family: var(--font-display);">${formatCurrency(inv.investedAmount)}</td>
-            <td style="font-family: var(--font-display);"><span style="font-weight: 600; color: #ffffff;">${formatCurrency(inv.currentValue)}</span></td>
+            <td style="font-family: var(--font-display);"><span style="font-weight: 600; color: var(--foreground);">${formatCurrency(inv.currentValue)}</span></td>
             <td style="color: ${invYield >= 0 ? 'var(--success)' : 'var(--danger)'}; font-weight: 600;">
                 ${invYield >= 0 ? '+' : ''}${invYield.toFixed(2)}%
             </td>
