@@ -2268,28 +2268,72 @@ tbody tr:hover {
 /* ChaiUI Warm Light Mode */
 html:not(.dark),
 html.light {
-    --background: #fbfaf8;             /* warm neutral base, never blue */
-    --foreground: #1c1917;             /* near-black warm */
-    --muted: #f5f2eb;
-    --muted-foreground: #78716c;       /* neutral warm grey */
+    --background: #ffffff;             /* clean bright canvas for senior readability */
+    --foreground: #171717;             /* near-black oklch(0.145 0 0) high contrast */
+    --card: #ffffff;
+    --card-foreground: #171717;
+    --muted: #f5f5f4;
+    --muted-foreground: #525252;       /* neutral grey 7:1 contrast against white */
     --subtle-border: rgba(120, 53, 15, 0.12);
     
-    --card-edge: rgba(120, 53, 15, 0.15);      /* amber-900/15 */
-    --card-edge-hover: rgba(120, 53, 15, 0.30);
-    --card-fill: rgba(255, 255, 255, 0.70);
+    --card-edge: rgba(120, 53, 15, 0.15);      /* amber-900/15 signature hairline */
+    --card-edge-hover: rgba(120, 53, 15, 0.32);
+    --card-fill: rgba(255, 255, 255, 0.92);
     
-    --highlight: #854d0e;                      /* yellow-800 */
+    --highlight: #854d0e;                      /* yellow-800 deep amber highlight */
+    --brand: #f97316;
+
+    --primary: #171717;
+    --primary-foreground: #ffffff;
+    --secondary: #f5f5f4;
+    --secondary-foreground: #171717;
+
+    --success: #059669;
+    --success-border: rgba(5, 150, 105, 0.25);
+    --danger: #dc2626;
+    --danger-border: rgba(220, 38, 38, 0.25);
+    --warning: #d97706;
+    --warning-border: rgba(217, 119, 6, 0.25);
+    --info: #2563eb;
+    --info-border: rgba(37, 99, 235, 0.25);
 }
 
+/* Backdrop */
 html:not(.dark) .chai-backdrop,
 html.light .chai-backdrop {
     filter: invert(1) hue-rotate(180deg);      /* prevents blue invert */
-    opacity: 0.3;
+    opacity: 0.18;
 }
 
+/* Header */
+html:not(.dark) .landing-header,
+html.light .landing-header {
+    background: rgba(255, 255, 255, 0.88);
+    border-bottom: 1px solid rgba(120, 53, 15, 0.12);
+}
+html:not(.dark) .landing-header.scrolled,
+html.light .landing-header.scrolled {
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid rgba(120, 53, 15, 0.22);
+}
+html:not(.dark) .landing-nav .nav-link,
+html.light .landing-nav .nav-link {
+    color: #525252;
+}
+html:not(.dark) .landing-nav .nav-link:hover,
+html.light .landing-nav .nav-link:hover {
+    color: #171717;
+}
+
+/* Buttons */
 html:not(.dark) .btn-solid,
 html.light .btn-solid {
     background-color: #171717;
+    color: #ffffff;
+}
+html:not(.dark) .btn-solid:hover,
+html.light .btn-solid:hover {
+    background-color: #262626;
     color: #ffffff;
 }
 
@@ -2297,13 +2341,211 @@ html:not(.dark) .btn-outline,
 html.light .btn-outline {
     background-color: transparent;
     color: #171717;
-    border-color: rgba(120, 53, 15, 0.3);
+    border-color: rgba(120, 53, 15, 0.28);
+}
+html:not(.dark) .btn-outline:hover,
+html.light .btn-outline:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    color: #171717;
+    border-color: rgba(120, 53, 15, 0.45);
 }
 
 html:not(.dark) .btn-soft,
 html.light .btn-soft {
     background-color: rgba(0, 0, 0, 0.04);
-    color: #1c1917;
-    border-color: rgba(120, 53, 15, 0.12);
+    color: #171717;
+    border-color: rgba(120, 53, 15, 0.15);
+}
+html:not(.dark) .btn-soft:hover,
+html.light .btn-soft:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #171717;
+    border-color: rgba(120, 53, 15, 0.28);
+}
+
+/* Animated badge */
+html:not(.dark) .animated-badge-inner,
+html.light .animated-badge-inner {
+    background: #f5f5f4;
+    color: #262626;
+    border: 1px solid rgba(120, 53, 15, 0.15);
+}
+
+/* Form controls */
+html:not(.dark) .form-control,
+html.light .form-control,
+html:not(.dark) .search-input,
+html.light .search-input {
+    background: #ffffff;
+    border: 1px solid rgba(120, 53, 15, 0.22);
+    color: #171717;
+}
+html:not(.dark) .form-control:focus,
+html.light .form-control:focus,
+html:not(.dark) .search-input:focus,
+html.light .search-input:focus {
+    border-color: rgba(120, 53, 15, 0.65);
+    background: #ffffff;
+    outline: none;
+}
+html:not(.dark) .form-label,
+html.light .form-label {
+    color: #262626;
+}
+
+/* Modals & Overlays */
+html:not(.dark) .auth-overlay,
+html.light .auth-overlay,
+html:not(.dark) .modal-overlay,
+html.light .modal-overlay {
+    background: rgba(28, 25, 23, 0.45);
+}
+html:not(.dark) .auth-card,
+html.light .auth-card,
+html:not(.dark) .modal-card,
+html.light .modal-card {
+    background: #ffffff;
+    border: 1px solid rgba(120, 53, 15, 0.22);
+    color: #171717;
+}
+html:not(.dark) .modal-close,
+html.light .modal-close {
+    color: #525252;
+}
+html:not(.dark) .modal-close:hover,
+html.light .modal-close:hover {
+    color: #171717;
+}
+
+/* Portal Sidebar & Views */
+html:not(.dark) .sidebar,
+html.light .sidebar {
+    background: #fafaf9;
+    border-right: 1px solid rgba(120, 53, 15, 0.15);
+}
+html:not(.dark) .nav-item a,
+html.light .nav-item a {
+    color: #525252;
+}
+html:not(.dark) .nav-item.active a,
+html.light .nav-item.active a,
+html:not(.dark) .nav-item:hover a,
+html.light .nav-item:hover a {
+    color: #171717;
+    background: rgba(120, 53, 15, 0.08);
+}
+html:not(.dark) .user-profile-badge,
+html.light .user-profile-badge {
+    background: #f5f5f4;
+    border: 1px solid rgba(120, 53, 15, 0.15);
+}
+html:not(.dark) .user-profile-name,
+html.light .user-profile-name {
+    color: #171717;
+}
+
+/* Tables */
+html:not(.dark) th,
+html.light th {
+    background: #f5f5f4;
+    color: #525252;
+    border-bottom: 1px solid rgba(120, 53, 15, 0.15);
+}
+html:not(.dark) td,
+html.light td {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    color: #171717;
+}
+html:not(.dark) tr:hover td,
+html.light tr:hover td {
+    background: rgba(120, 53, 15, 0.03);
+}
+
+/* FAQ Accordion */
+html:not(.dark) .faq-item,
+html.light .faq-item {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(120, 53, 15, 0.15);
+}
+html:not(.dark) .faq-item.active,
+html.light .faq-item.active {
+    border-color: rgba(120, 53, 15, 0.32);
+}
+html:not(.dark) .faq-question,
+html.light .faq-question {
+    color: #171717;
+}
+html:not(.dark) .faq-answer,
+html.light .faq-answer {
+    color: #525252;
+}
+
+/* Process Steps */
+html:not(.dark) .process-step,
+html.light .process-step {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(120, 53, 15, 0.15);
+}
+html:not(.dark) .step-number,
+html.light .step-number {
+    color: #854d0e;
+    background: rgba(120, 53, 15, 0.08);
+    border-color: rgba(120, 53, 15, 0.25);
+}
+
+/* Lead & Subtext */
+html:not(.dark) .hero-lead,
+html.light .hero-lead,
+html:not(.dark) .section-lead,
+html.light .section-lead,
+html:not(.dark) .metric-sub,
+html.light .metric-sub,
+html:not(.dark) .consultation-desc,
+html.light .consultation-desc {
+    color: #525252;
+}
+
+/* Footer */
+html:not(.dark) .landing-footer,
+html.light .landing-footer {
+    background: #fafaf9;
+    border-top: 1px solid rgba(120, 53, 15, 0.15);
+}
+html:not(.dark) .footer-desc,
+html.light .footer-desc,
+html:not(.dark) .footer-col ul li a,
+html.light .footer-col ul li a,
+html:not(.dark) .compliance-disclaimer,
+html.light .compliance-disclaimer {
+    color: #525252;
+}
+html:not(.dark) .footer-col ul li a:hover,
+html.light .footer-col ul li a:hover {
+    color: #171717;
+}
+
+/* Theme toggle button specific styling */
+.btn-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    cursor: pointer;
+    color: var(--foreground);
+    border: 1px solid var(--card-edge);
+    background: transparent;
+    box-shadow: none !important;
+    transition: var(--transition);
+    line-height: 1;
+}
+.btn-theme-toggle:hover {
+    border-color: var(--card-edge-hover);
+    color: var(--foreground);
+}
+.btn-theme-toggle ion-icon {
+    font-size: 1.1rem;
 }
 

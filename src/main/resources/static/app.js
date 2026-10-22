@@ -76,6 +76,121 @@ window.showLandingView = showLandingView;
 window.openAuthModal = openAuthModal;
 window.closeAuthModal = closeAuthModal;
 
+// =========================================================================
+// CHAIUI THEME STATE & CONTROLLERS (Dark / Light Mode)
+// =========================================================================
+const getPreferredTheme = () => {
+    try {
+        if (typeof localStorage !== 'undefined') {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'light' || saved === 'dark') {
+                return saved;
+            }
+        }
+        if (typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            return 'light';
+        }
+    } catch (e) {
+        // Fallback gracefully
+    }
+    return 'dark'; // ChaiUI default
+};
+
+const updateThemeUI = (isLight) => {
+    if (typeof document === 'undefined' || typeof document.querySelectorAll !== 'function') return;
+
+    // Toggle icons
+    const darkIcons = document.querySelectorAll('.theme-icon-dark, #theme-icon-dark');
+    if (darkIcons && typeof darkIcons.forEach === 'function') {
+        darkIcons.forEach(el => {
+            if (el && el.style) el.style.display = isLight ? 'none' : 'inline-block';
+        });
+    }
+
+    const lightIcons = document.querySelectorAll('.theme-icon-light, #theme-icon-light');
+    if (lightIcons && typeof lightIcons.forEach === 'function') {
+        lightIcons.forEach(el => {
+            if (el && el.style) el.style.display = isLight ? 'inline-block' : 'none';
+        });
+    }
+
+    // Toggle accessibility labels and attributes
+    const themeButtons = document.querySelectorAll('.btn-theme-toggle, #btn-theme-toggle');
+    if (themeButtons && typeof themeButtons.forEach === 'function') {
+        themeButtons.forEach(btn => {
+            if (btn && typeof btn.setAttribute === 'function') {
+                btn.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+                btn.setAttribute('title', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+            }
+        });
+    }
+};
+
+const applyTheme = (theme, persist = true) => {
+    const isLight = (theme === 'light');
+    if (typeof document !== 'undefined' && document.documentElement && document.documentElement.classList) {
+        if (isLight) {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        } else {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        }
+    }
+
+    if (persist) {
+        try {
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem('theme', theme);
+            }
+        } catch (e) {
+            // Ignore storage restrictions
+        }
+    }
+
+    updateThemeUI(isLight);
+};
+
+const toggleTheme = () => {
+    const isCurrentlyLight = (typeof document !== 'undefined' && document.documentElement && document.documentElement.classList)
+        ? (document.documentElement.classList.contains('light') || !document.documentElement.classList.contains('dark'))
+        : false;
+    const nextTheme = isCurrentlyLight ? 'dark' : 'light';
+    applyTheme(nextTheme, true);
+    return nextTheme;
+};
+
+const initTheme = () => {
+    const pref = getPreferredTheme();
+    applyTheme(pref, false);
+
+    // Watch OS system preference changes if user hasn't explicitly set theme
+    if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+        try {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+            if (mediaQuery && typeof mediaQuery.addEventListener === 'function') {
+                mediaQuery.addEventListener('change', (e) => {
+                    let hasManualChoice = false;
+                    try {
+                        hasManualChoice = typeof localStorage !== 'undefined' && !!localStorage.getItem('theme');
+                    } catch (err) {}
+                    if (!hasManualChoice) {
+                        applyTheme(e.matches ? 'light' : 'dark', false);
+                    }
+                });
+            }
+        } catch (e) {}
+    }
+};
+
+window.getPreferredTheme = getPreferredTheme;
+window.applyTheme = applyTheme;
+window.toggleTheme = toggleTheme;
+window.initTheme = initTheme;
+
+// Immediate initialization if DOM is already present
+initTheme();
+
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeAuthModal();
@@ -1208,6 +1323,10 @@ window.formatCurrency = formatCurrency;
 window.showLandingView = showLandingView;
 window.openAuthModal = openAuthModal;
 window.closeAuthModal = closeAuthModal;
+window.getPreferredTheme = getPreferredTheme;
+window.applyTheme = applyTheme;
+window.toggleTheme = toggleTheme;
+window.initTheme = initTheme;
 window.switchView = switchView;
 window.checkSession = checkSession;
 window.handleLogin = handleLogin;
@@ -1231,6 +1350,9 @@ window.submitGoogleImport = submitGoogleImport;
 
 // 17. INITIALIZE APP ROOT BINDINGS
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize ChaiUI theme state
+    initTheme();
+
     // Check dynamic authentication session immediately
     checkSession();
     
