@@ -1543,20 +1543,7 @@
         }
 
         function openAuthModal() {
-            if (window.currentUser) {
-                const landing = document.getElementById('public-landing');
-                if (landing) landing.style.display = 'none';
-                const appContainer = document.getElementById('app-container');
-                if (appContainer) appContainer.style.display = 'flex';
-                window.scrollTo({ top: 0, behavior: 'instant' });
-                return;
-            }
-            const overlay = document.getElementById('auth-overlay');
-            if (overlay) {
-                overlay.style.display = 'flex';
-                const userField = document.getElementById('login-username');
-                if (userField) userField.focus();
-            }
+            window.location.href = '/portal';
         }
 
         function closeAuthModal() {

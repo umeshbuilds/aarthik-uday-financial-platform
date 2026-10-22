@@ -28,20 +28,32 @@ const showLandingView = () => {
     if (authOverlay) authOverlay.style.display = 'none';
     const appContainer = document.getElementById('app-container');
     if (appContainer) appContainer.style.display = 'none';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 };
 
 const openAuthModal = () => {
+    const isMockOrLocal = (typeof window !== 'undefined' && window.location && window.location.pathname) ? window.location.pathname : '';
+    if (isMockOrLocal && isMockOrLocal !== '/portal' && isMockOrLocal !== '/portal.html') {
+        window.location.href = '/portal';
+        return;
+    }
     if (currentUser) {
         const landing = document.getElementById('public-landing');
         if (landing) landing.style.display = 'none';
         const appContainer = document.getElementById('app-container');
         if (appContainer) appContainer.style.display = 'flex';
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
         if (currentUser.role === 'ROLE_ADMIN') {
-            switchView('admin-dashboard');
+            switchView('admin-clients');
+            loadAdminClientsView();
+            loadAdminDashboard();
         } else {
             switchView('client-dashboard');
+            loadClientDashboard();
         }
         return;
     }
@@ -127,7 +139,8 @@ const checkSession = async () => {
                 if (navClients) navClients.style.display = 'block';
                 const navClient = document.getElementById('nav-client-dashboard');
                 if (navClient) navClient.style.display = 'none';
-                switchView('admin-dashboard');
+                switchView('admin-clients');
+                loadAdminClientsView();
                 loadAdminDashboard();
             } else if (currentUser.role === 'ROLE_CLIENT') {
                 const navAdmin = document.getElementById('nav-admin-dashboard');
@@ -140,14 +153,18 @@ const checkSession = async () => {
                 loadClientDashboard();
             }
         } else {
-            // Unauthenticated state: show public landing
+            // Unauthenticated state
             currentUser = null;
             window.currentUser = null;
-            showLandingView();
+            const isPortal = window.location.pathname === '/portal' || window.location.pathname === '/portal.html';
             
-            // If URL indicates portal view requested, open auth modal
-            if (window.location.hash === '#portal' || window.location.hash === '#login' || window.location.pathname === '/portal') {
-                openAuthModal();
+            if (isPortal) {
+                const authOverlay = document.getElementById('auth-overlay');
+                if (authOverlay) authOverlay.style.display = 'flex';
+                const appContainer = document.getElementById('app-container');
+                if (appContainer) appContainer.style.display = 'none';
+            } else {
+                showLandingView();
             }
 
             // Clean up intervals if any
@@ -215,9 +232,16 @@ const handleLogin = async (event) => {
             if (usernameEl) usernameEl.value = '';
             if (passwordEl) passwordEl.value = '';
             closeAuthModal();
-            window.location.hash = '#portal';
+            // If on marketing landing page, navigate directly to /portal
+            const path = (typeof window !== 'undefined' && window.location && window.location.pathname) ? window.location.pathname : '';
+            if (path && path !== '/portal' && path !== '/portal.html') {
+                window.location.href = '/portal';
+                return false;
+            }
             await checkSession();
-            window.scrollTo({ top: 0, behavior: 'instant' });
+            if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            }
             return false;
         } else {
             if (errorEl) {
@@ -251,15 +275,18 @@ const handleLogout = async (event) => {
             liveSimInterval = null;
             resetLiveSimButton();
         }
-        if (window.location.hash === '#portal' || window.location.hash === '#login') {
-            history.pushState(null, '', window.location.pathname);
-        }
         showLandingView();
+        if (typeof window !== 'undefined' && window.location && (window.location.pathname === '/portal' || window.location.pathname === '/portal.html')) {
+            window.location.href = '/';
+        }
     } catch (err) {
         console.error('Logout error:', err);
         currentUser = null;
         window.currentUser = null;
         showLandingView();
+        if (typeof window !== 'undefined' && window.location && (window.location.pathname === '/portal' || window.location.pathname === '/portal.html')) {
+            window.location.href = '/';
+        }
     }
     return false;
 };

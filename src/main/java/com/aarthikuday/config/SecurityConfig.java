@@ -62,6 +62,7 @@ public class SecurityConfig {
                     "/app.js",
                     "/images/**",
                     "/portal",
+                    "/portal.html",
                     "/dashboard",
                     "/admin",
                     "/h2-console/**",
@@ -87,7 +88,7 @@ public class SecurityConfig {
                         response.setContentType("application/json");
                         response.getWriter().write("{\"success\":true, \"username\":\"" + authentication.getName() + "\"}");
                     } else {
-                        response.sendRedirect("/#portal");
+                        response.sendRedirect("/portal");
                     }
                 })
                 .failureHandler((request, response, exception) -> {
@@ -101,7 +102,7 @@ public class SecurityConfig {
                         response.setContentType("application/json");
                         response.getWriter().write("{\"success\":false, \"message\":\"" + exception.getMessage() + "\"}");
                     } else {
-                        response.sendRedirect("/?error=true#login");
+                        response.sendRedirect("/portal?error=true");
                     }
                 })
                 .permitAll()

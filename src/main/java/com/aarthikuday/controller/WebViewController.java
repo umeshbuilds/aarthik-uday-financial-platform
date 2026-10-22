@@ -8,6 +8,6 @@ public class WebViewController {
 
     @GetMapping({"/portal", "/dashboard", "/admin"})
     public String forwardToPortal() {
-        return "forward:/index.html";
+        return "forward:/portal.html";
     }
 }
